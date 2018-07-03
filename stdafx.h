@@ -25,6 +25,7 @@
 #include <queue>
 #include <set>
 #include <vector>
+#include <list>
 
 #include <mutex>
 #include <shared_mutex>

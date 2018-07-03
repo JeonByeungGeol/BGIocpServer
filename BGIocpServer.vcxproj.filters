@@ -61,7 +61,10 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="BGIOCompletionHandler.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOThread.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -87,7 +90,10 @@
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="BGIOCompletionHandler.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOThread.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -149,6 +149,7 @@
     <ClInclude Include="BGConst.h" />
     <ClInclude Include="BGIOCompletionHandler.h" />
     <ClInclude Include="BGIOObject.h" />
+    <ClInclude Include="BGIOThread.h" />
     <ClInclude Include="BGLog.h" />
     <ClInclude Include="BGLogEnum.h" />
     <ClInclude Include="BGLogManager.h" />
@@ -161,6 +162,7 @@
     <ClCompile Include="BGIOCompletionHandler.cpp" />
     <ClCompile Include="BGIocpServer.cpp" />
     <ClCompile Include="BGIOObject.cpp" />
+    <ClCompile Include="BGIOThread.cpp" />
     <ClCompile Include="BGLog.cpp" />
     <ClCompile Include="BGLogManager.cpp" />
     <ClCompile Include="BGSingleton.cpp" />
