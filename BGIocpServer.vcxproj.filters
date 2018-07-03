@@ -39,9 +39,6 @@
     <ClInclude Include="targetver.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="BGIOObject.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="BGLog.h">
       <Filter>로그</Filter>
     </ClInclude>
@@ -60,15 +57,18 @@
     <ClInclude Include="BGConst.h">
       <Filter>공통</Filter>
     </ClInclude>
+    <ClInclude Include="BGIOObject.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOCompletionHandler.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="BGIocpServer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="BGIOObject.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="BGLog.cpp">
@@ -82,6 +82,12 @@
     </ClCompile>
     <ClCompile Include="BGConfigManager.cpp">
       <Filter>설정</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOObject.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOCompletionHandler.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

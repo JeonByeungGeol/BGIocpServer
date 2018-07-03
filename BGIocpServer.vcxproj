@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="BGConfigManager.h" />
     <ClInclude Include="BGConst.h" />
+    <ClInclude Include="BGIOCompletionHandler.h" />
     <ClInclude Include="BGIOObject.h" />
     <ClInclude Include="BGLog.h" />
     <ClInclude Include="BGLogEnum.h" />
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BGConfigManager.cpp" />
+    <ClCompile Include="BGIOCompletionHandler.cpp" />
     <ClCompile Include="BGIocpServer.cpp" />
     <ClCompile Include="BGIOObject.cpp" />
     <ClCompile Include="BGLog.cpp" />
