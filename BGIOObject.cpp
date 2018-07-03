@@ -10,6 +10,8 @@ void BGIOObject::AddRef()
 void BGIOObject::AddRef(LONG volatile * pRef)
 {
 	if (InterlockedIncrement(&m_nRef) == 1) {
+		BG_LOG_ERROR("");
+		// EBREAK(); 추후 StackWorker 사용
 		m_nRef = 100;
 	}
 
@@ -25,6 +27,9 @@ void BGIOObject::Release(LONG volatile * pRef)
 {
 	long nRef = InterlockedDecrement(pRef);
 	if (nRef < 0) {
+		BG_LOG_ERROR("[pRef %p %lu %lld %d]"
+		, this, *(DWORD*)this, (char*)pRef - (char*)this, nRef);
+		// EBREAK(); 추후 StackWorker 사용
 		*pRef = 100;
 		m_nRef = 100;
 	}
@@ -33,10 +38,16 @@ void BGIOObject::Release(LONG volatile * pRef)
 	if (nRef > 0)
 		return;
 	if (nRef < 0) {
-
+		BG_LOG_ERROR("[m_nRef %p %lu %d]"
+			, this, *(DWORD*)this, nRef);
+		// EBREAK(); 추후 StackWorker 사용
+		return;
 	}
 
 	if (m_nTimerRef > 0 || m_nGeneralRef > 0) {
+		BG_LOG_ERROR("[remain %p %lu (%d,%d,%d)]"
+			, this, *(DWORD*) this, nRef, m_nTimerRef, m_nGeneralRef );
+		// EBREAK(); 추후 StackWorker 사용
 		m_nRef = 100;
 		return;
 	}
