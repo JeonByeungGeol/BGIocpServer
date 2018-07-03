@@ -13,6 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{af7232bd-4c41-471c-bc65-c8d845f7bbf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="싱글톤">
+      <UniqueIdentifier>{3fc846b5-fd33-4b20-b8ee-46849ea762b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="로그">
+      <UniqueIdentifier>{d5a83711-832d-4eb7-b283-a5f6b60d6716}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="설정">
+      <UniqueIdentifier>{55ec0262-7625-46c8-821b-b4163ad630db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="공통">
+      <UniqueIdentifier>{be551d39-3795-471d-b2f6-21a7ecab6d3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -24,6 +39,27 @@
     <ClInclude Include="targetver.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="BGIOObject.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BGLog.h">
+      <Filter>로그</Filter>
+    </ClInclude>
+    <ClInclude Include="BGLogEnum.h">
+      <Filter>로그</Filter>
+    </ClInclude>
+    <ClInclude Include="BGLogManager.h">
+      <Filter>로그</Filter>
+    </ClInclude>
+    <ClInclude Include="BGSingleton.h">
+      <Filter>싱글톤</Filter>
+    </ClInclude>
+    <ClInclude Include="BGConfigManager.h">
+      <Filter>설정</Filter>
+    </ClInclude>
+    <ClInclude Include="BGConst.h">
+      <Filter>공통</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -32,5 +68,25 @@
     <ClCompile Include="BGIocpServer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="BGIOObject.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BGLog.cpp">
+      <Filter>로그</Filter>
+    </ClCompile>
+    <ClCompile Include="BGLogManager.cpp">
+      <Filter>로그</Filter>
+    </ClCompile>
+    <ClCompile Include="BGSingleton.cpp">
+      <Filter>싱글톤</Filter>
+    </ClCompile>
+    <ClCompile Include="BGConfigManager.cpp">
+      <Filter>설정</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bg_config.ini">
+      <Filter>설정</Filter>
+    </None>
   </ItemGroup>
 </Project>

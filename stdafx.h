@@ -12,4 +12,30 @@
 
 
 
+// windows
+#include <Windows.h>
+
+
+// std
+#include <iostream>
+#include <fstream>
+#include <string>
+
+#include <map>
+#include <queue>
+#include <set>
+#include <vector>
+
+#include <mutex>
+#include <shared_mutex>
+
+
 // TODO: 프로그램에 필요한 추가 헤더는 여기에서 참조합니다.
+// 상수
+#include "BGConst.h"
+
+// 유틸
+#include "BGSingleton.h"
+#include "BGConfigManager.h"
+#include "BGLogManager.h"
+
