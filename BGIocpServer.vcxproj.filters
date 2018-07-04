@@ -66,6 +66,12 @@
     <ClInclude Include="BGIOThread.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="BGIOAcceptThread.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOServer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -93,6 +99,12 @@
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="BGIOThread.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOAcceptThread.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOServer.cpp">
       <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>

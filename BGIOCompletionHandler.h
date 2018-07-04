@@ -1,6 +1,6 @@
 #pragma once
 
-class CIOObject;
+class BGIOObject;
 
 class BGIOCompletionHandler
 {
@@ -15,10 +15,10 @@ public:
 	BOOL HandleAdd(HANDLE handle, ULONG_PTR key);
 	
 	/** GetQueuedCompletionStatus*/
-	BOOL Get(DWORD& dwTransferred, CIOObject** ppObject, OVERLAPPED** ppOverlapped);
+	BOOL Get(DWORD& dwTransferred, BGIOObject** ppObject, OVERLAPPED** ppOverlapped);
 
 	/** PostQueuedCompletionStatus*/
-	BOOL Post(int nId, CIOObject* pObject);
+	BOOL Post(int nId, BGIOObject* pObject);
 
 
 private:

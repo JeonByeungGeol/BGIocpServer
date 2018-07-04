@@ -29,12 +29,12 @@ BOOL BGIOCompletionHandler::HandleAdd(HANDLE handle, ULONG_PTR key)
 	return TRUE;
 }
 
-BOOL BGIOCompletionHandler::Get(DWORD & dwTransferred, CIOObject ** ppObject, OVERLAPPED ** ppOverlapped)
+BOOL BGIOCompletionHandler::Get(DWORD & dwTransferred, BGIOObject ** ppObject, OVERLAPPED ** ppOverlapped)
 {
 	return GetQueuedCompletionStatus(m_hCompletionPort, &dwTransferred, (PULONG_PTR)&(*ppObject), &(*ppOverlapped), INFINITE);
 }
 
-BOOL BGIOCompletionHandler::Post(int nId, CIOObject * pObject)
+BOOL BGIOCompletionHandler::Post(int nId, BGIOObject * pObject)
 {
 	return PostQueuedCompletionStatus(m_hCompletionPort, nId, (ULONG_PTR)pObject, nullptr);
 }

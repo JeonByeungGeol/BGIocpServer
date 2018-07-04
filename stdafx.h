@@ -13,8 +13,8 @@
 
 
 // windows
+#include <WinSock2.h>
 #include <Windows.h>
-
 
 // std
 #include <iostream>
@@ -40,3 +40,4 @@
 #include "BGConfigManager.h"
 #include "BGLogManager.h"
 
+#pragma comment(lib, "ws2_32.lib")
