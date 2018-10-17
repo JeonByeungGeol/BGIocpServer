@@ -107,7 +107,7 @@ void BGIOTimerThread::Run()
 					break;
 				BGIOObject *pObject = s_timerQueue.top().m_pObject;
 				pObject->Release(&pObject->m_nTimerRef);
-				s_timerQueue.pop;
+				s_timerQueue.pop();
 			}
 			//s_lockTimer.Leave();
 			break;

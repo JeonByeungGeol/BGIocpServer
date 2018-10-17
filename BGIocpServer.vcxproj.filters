@@ -28,6 +28,15 @@
     <Filter Include="공통">
       <UniqueIdentifier>{be551d39-3795-471d-b2f6-21a7ecab6d3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\Timer">
+      <UniqueIdentifier>{b4a13624-3a75-4db6-ab97-9497e10b6981}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Lock">
+      <UniqueIdentifier>{cbe7ad3d-5004-4269-8ee2-61e8f3b89337}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Buffer">
+      <UniqueIdentifier>{f32ab34b-4b32-4652-a522-2b7183aa14fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -63,14 +72,26 @@
     <ClInclude Include="BGIOCompletionHandler.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="BGIOThread.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="BGIOAcceptThread.h">
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="BGIOServer.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOTimer.h">
+      <Filter>Common\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOThread.h">
+      <Filter>Common\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="BGLock.h">
+      <Filter>Common\Lock</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOBuffer.h">
+      <Filter>Common\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOTimerThread.h">
+      <Filter>Common\Timer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -98,14 +119,23 @@
     <ClCompile Include="BGIOCompletionHandler.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="BGIOThread.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
     <ClCompile Include="BGIOAcceptThread.cpp">
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="BGIOServer.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOThread.cpp">
+      <Filter>Common\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="BGLock.cpp">
+      <Filter>Common\Lock</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOBuffer.cpp">
+      <Filter>Common\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOTimerThread.cpp">
+      <Filter>Common\Timer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

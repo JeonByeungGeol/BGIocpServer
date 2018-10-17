@@ -148,10 +148,14 @@
     <ClInclude Include="BGConfigManager.h" />
     <ClInclude Include="BGConst.h" />
     <ClInclude Include="BGIOAcceptThread.h" />
+    <ClInclude Include="BGIOBuffer.h" />
     <ClInclude Include="BGIOCompletionHandler.h" />
     <ClInclude Include="BGIOObject.h" />
     <ClInclude Include="BGIOServer.h" />
     <ClInclude Include="BGIOThread.h" />
+    <ClInclude Include="BGIOTimer.h" />
+    <ClInclude Include="BGIOTimerThread.h" />
+    <ClInclude Include="BGLock.h" />
     <ClInclude Include="BGLog.h" />
     <ClInclude Include="BGLogEnum.h" />
     <ClInclude Include="BGLogManager.h" />
@@ -162,11 +166,14 @@
   <ItemGroup>
     <ClCompile Include="BGConfigManager.cpp" />
     <ClCompile Include="BGIOAcceptThread.cpp" />
+    <ClCompile Include="BGIOBuffer.cpp" />
     <ClCompile Include="BGIOCompletionHandler.cpp" />
     <ClCompile Include="BGIocpServer.cpp" />
     <ClCompile Include="BGIOObject.cpp" />
     <ClCompile Include="BGIOServer.cpp" />
     <ClCompile Include="BGIOThread.cpp" />
+    <ClCompile Include="BGIOTimerThread.cpp" />
+    <ClCompile Include="BGLock.cpp" />
     <ClCompile Include="BGLog.cpp" />
     <ClCompile Include="BGLogManager.cpp" />
     <ClCompile Include="BGSingleton.cpp" />
