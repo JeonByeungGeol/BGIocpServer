@@ -26,8 +26,10 @@ BGIOThread::~BGIOThread()
 
 void BGIOThread::Begin(BGIOCompletionHandler * pIOCPHandler)
 {
-	if (m_bStarted == TRUE)
+	if (m_bStarted == TRUE) {
+		BG_LOG_WARNING("already running");
 		return;
+	}
 	
 	m_pIOCPHandler = pIOCPHandler;
 
