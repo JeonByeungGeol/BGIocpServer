@@ -19,15 +19,19 @@ BGIOCompletionHandler::~BGIOCompletionHandler()
 BOOL BGIOCompletionHandler::Init()
 {
 	m_hCompletionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, nullptr, 0, 0);
-	if (m_hCompletionPort == INVALID_HANDLE_VALUE)
+	if (m_hCompletionPort == INVALID_HANDLE_VALUE) {
+		BG_LOG_ERROR("m_hCompletionPort is INVALID_HANDLE_VALUE!");
 		return FALSE;
+	}
 	return TRUE;
 }
 
 BOOL BGIOCompletionHandler::HandleAdd(HANDLE handle, ULONG_PTR key)
 {
-	if (CreateIoCompletionPort(handle, m_hCompletionPort, key, 0) == nullptr)
+	if (CreateIoCompletionPort(handle, m_hCompletionPort, key, 0) == nullptr) {
+		BG_LOG_ERROR("HandleAdd is Fail (key:%lu)", key);
 		return FALSE;
+	}
 	return TRUE;
 }
 
