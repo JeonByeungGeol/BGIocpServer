@@ -10,8 +10,10 @@ BGIOCompletionHandler::BGIOCompletionHandler()
 
 BGIOCompletionHandler::~BGIOCompletionHandler()
 {
-	CloseHandle(m_hCompletionPort);
-	m_hCompletionPort = INVALID_HANDLE_VALUE;
+	if (m_hCompletionPort != INVALID_HANDLE_VALUE) {
+		CloseHandle(m_hCompletionPort);
+		m_hCompletionPort = INVALID_HANDLE_VALUE;
+	}	
 }
 
 BOOL BGIOCompletionHandler::Init()
