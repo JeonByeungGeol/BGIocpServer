@@ -1,6 +1,20 @@
 ﻿========================================================================
     콘솔 응용 프로그램 : BGIocpServer 프로젝트 개요
 ========================================================================
+[1.00 버전]
+ -BGProto프로젝트에서 만든 공통적으로 쓰이는 객체 적용
+  BGSingleton,  BGConfigManager,  BGLogManager
+
+[1.01 버전]
+ -멀티스레드에서 사용가능한 기본적인 객체 구현
+  BGIOObject, BGIOCompletionHandler, BGIOThread, BGIOAcceptThread, BGIOServer
+
+[1.02 버전]
+ -타이머 객체 만들어, BGIOObject를 상속하면 기능 사용 가능하도록 구현
+
+
+
+
 
 응용 프로그램 마법사에서 이 BGIocpServer 응용 프로그램을 만들었습니다.
 
