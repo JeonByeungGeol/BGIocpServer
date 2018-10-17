@@ -6,12 +6,24 @@
   BGSingleton,  BGConfigManager,  BGLogManager
 
 [1.01 버전]
- -멀티스레드에서 사용가능한 기본적인 객체 구현
+ -멀티스레드에서 사용 가능한 기본적인 객체 구현
   BGIOObject, BGIOCompletionHandler, BGIOThread, BGIOAcceptThread, BGIOServer
 
 [1.02 버전]
  -타이머 객체 만들어, BGIOObject를 상속하면 기능 사용 가능하도록 구현
+ 특징:
+  1. 하나의 스레드가 담당해서 동작
+  2. 불필요한 while문을 돌지 않는다.
+  (BG Proto 프로젝트에서는 항상 while을 돌면서 타이머 동작이 있는지 여부를 검사했다.)
 
+ 수정되어야 할 사항:
+  1. 하나의 스레드에서 실제 객체의 동작까지 돌아간다.
+  -> BG Proto 프로젝트에서는 타이머 스레드와 워커 스레드가 연동되어, 실제 객체의 동작은 워커 스레드에서 담당하도록 처리하였다.
+  
+ [1.03 버전]
+ -멀티스레드에서 사용 가능한 각종 IOLock, IOBuffer 구현
+  BGIOLock, BGIOBuffer
+ 
 
 
 
