@@ -13,10 +13,10 @@ public:
 	void Release(LONG volatile* pRef);
 	
 	virtual void OnFree();
+		
+	void AddTimer(ULONGLONG n64Time, int nId = 0);
 
 	virtual void OnWaitCallback() {}
-
-	void AddTimer(ULONGLONG n64Time, int nId = 0);
 	virtual void OnTimerCallback(int nId = 0) {}
 	virtual void OnIOCallback(BOOL bSuccess, DWORD dwTransferred, LPOVERLAPPED lpOverlapped);
 	virtual void OnTimer(int nId) {}

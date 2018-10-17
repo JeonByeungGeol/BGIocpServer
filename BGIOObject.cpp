@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "BGIOObject.h"
-
+#include "BGIOTimerThread.h"
 
 void BGIOObject::AddRef()
 {
@@ -65,7 +65,7 @@ void BGIOObject::OnFree()
 void BGIOObject::AddTimer(ULONGLONG n64Time, int nId)
 {
 	AddRef(&m_nTimerRef);
-
+	BGIOTimerThread::AddTimer(this, n64Time, nId);
 }
 
 void BGIOObject::OnIOCallback(BOOL bSuccess, DWORD dwTransferred, LPOVERLAPPED lpOverlapped)
