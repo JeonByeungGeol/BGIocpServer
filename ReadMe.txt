@@ -22,7 +22,11 @@
   
  [1.03 버전]
  -멀티스레드에서 사용 가능한 각종 IOLock, IOBuffer 구현
-  BGIOLock, BGIOBuffer
+  BGIOBuffer
+   특징 : 한번 할당 받은 버퍼는 지우지 않고 재활용 한다.
+   -> TCP 전송을 하기 위한 버퍼로 사용된다.
+
+  BGIOLock
  
 
 
