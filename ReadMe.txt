@@ -22,12 +22,21 @@
   
  [1.03 버전]
  -멀티스레드에서 사용 가능한 각종 IOLock, IOBuffer 구현
-  BGIOBuffer
+  BGIOBuffer 객체
    특징 : 한번 할당 받은 버퍼는 지우지 않고 재활용 한다.
    -> TCP 전송을 하기 위한 버퍼로 사용된다.
 
-  BGIOLock
- 
+  BGIOLock 객체
+  1) BGLockInfo 객체
+   스레드 로컬 변수로 선언되며, 스레드마다 객체가 생성된다.
+   스레드 소멸시에 객체도 소멸된다.
+   스레드마다 pending 된 락의 갯수, lock 된 시각 정보를 가지고 있다.
+
+  2) BGILock 객체
+   Lock객체 중 가장 상위 객체
+   static 객체로 LockInfo를 map으로 관리하고,
+   해당 map을 동기화 시키기 위한 BGRWLock을 가지고 있다.
+
 
 
 
