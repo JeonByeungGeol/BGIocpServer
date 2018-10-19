@@ -35,29 +35,34 @@ public:
 
 public:
 	BGILock();
-	virtual ~BGILock();
 
-	virtual void Enter() {};
-	virtual void Leave() {};
+	virtual void Enter() = 0;
+	virtual void Leave() = 0;
 
 	void IncPendingLock();
 	void DecPendingLock();
 };
 
-
-
-
-
 class BGRWLock : public BGILock
 {
 public:
-	virtual void Enter() {}
-	virtual void Leave() {}
+	BGRWLock();
+	~BGRWLock();
 
-	void WriteLock() {};
-	void WriteUnlock() {};
+	void ReadLock();
+	void ReadUnlock();
+	void WriteLock();
+	void WriteUnlock();
+	BOOL WriteTryLock();
 
-	void ReadLock() {};
-	void ReadUnlock() {};
+protected:
+	long m_nCount;
+	long m_nLock;
+	HANDLE m_hREvent;
+	HANDLE m_hWEvent;
+	
+	void Wait();
+	virtual void Enter();
+	virtual void Leave();
 };
 
