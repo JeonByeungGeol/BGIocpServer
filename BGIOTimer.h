@@ -14,7 +14,12 @@ public:
 	}
 
 public:
-	__int64 m_n64Time;
-	BGIOObject* m_pObject;
-	int m_nId;
+	/** 동작시킬 객체*/
+	BGIOObject*		m_pObject;
+
+	/** 동작할 시간*/
+	__int64			m_n64Time;
+
+	/** 객체에 정의된 타이머 동작중 어떤 동작을 실행할지에 대한 값*/
+	int				m_nId;
 };

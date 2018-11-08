@@ -3,7 +3,7 @@
 #include "BGIOCompletionHandler.h"
 
 BGIOTimerThread::TimerQueue			BGIOTimerThread::s_timerQueue;
-// BGIOCriticalSection				BGIOTimerThread::s_lockTimer;
+BGIOCriticalSection					BGIOTimerThread::s_lockTimer;
 ULONGLONG							BGIOTimerThread::s_n64TopTime;
 HANDLE								BGIOTimerThread::s_hTimer;
 BGIOTimerThread::BGIOTimerInstance	BGIOTimerThread::s_TimerInstance;
@@ -17,8 +17,9 @@ void BGIOTimerThread::BGIOTimerInstance::OnTimerCallback(int nId)
 }
 
 BGIOTimerThread::BGIOTimerThread()
-	:m_pObject(nullptr)
 {
+	s_nStop = TRUE;
+
 	s_hTimer = CreateEvent(NULL, FALSE, FALSE, NULL);
 
 	m_vHandle[0] = s_hTimer;
@@ -43,10 +44,10 @@ void BGIOTimerThread::AddTimer(BGIOObject* pObject, ULONGLONG n64Time, int nId)
 {
 	n64Time += GetTickCount64();
 
-	// s_lockTimer.Enter();
+	s_lockTimer.Enter();
 	if (s_nStop) {
 		BG_LOG_WARNING("timer stoped");
-		// s_lockTimer.Leave();
+		s_lockTimer.Leave();
 		return;
 	}
 
@@ -54,20 +55,22 @@ void BGIOTimerThread::AddTimer(BGIOObject* pObject, ULONGLONG n64Time, int nId)
 
 	if ((LONG)(s_n64TopTime > n64Time)) {
 		s_n64TopTime = n64Time;
-		//s_lockTimer.Leave();
+		s_lockTimer.Leave();
 		SetEvent(s_hTimer);
 	}
 	else {
-		//s_lockTimer.Leave();
+		s_lockTimer.Leave();
 	}
 }
 
 void BGIOTimerThread::Run()
 {
+	s_nStop = FALSE;
+
 	for (; ;) {
 		ULONGLONG n64Tick = GetTickCount64();
 
-		//s_lockTimer.Enter();
+		s_lockTimer.Enter();
 		LONG nWait = (LONG)(s_n64TopTime - n64Tick);
 		if (nWait <= 0) {
 			const BGIOTimer &top = s_timerQueue.top();
@@ -87,7 +90,7 @@ void BGIOTimerThread::Run()
 				id = nextTop.m_nId;
 			}
 		}
-		//s_lockTimer.Leave();
+		s_lockTimer.Leave();
 
 		
 		
@@ -100,7 +103,7 @@ void BGIOTimerThread::Run()
 		}
 		else if (dwWaitResult == (WAIT_OBJECT_0 + 1)) {
 			// 현재 시점 남은 타이머 동작 실행 후 종료
-			//s_lockTimer.Enter();
+			s_lockTimer.Enter();
 			s_nStop = TRUE;
 			for (; ;) {
 				if (s_timerQueue.empty())
@@ -109,7 +112,7 @@ void BGIOTimerThread::Run()
 				pObject->Release(&pObject->m_nTimerRef);
 				s_timerQueue.pop();
 			}
-			//s_lockTimer.Leave();
+			s_lockTimer.Leave();
 			break;
 		}
 	}

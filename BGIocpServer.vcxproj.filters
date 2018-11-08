@@ -81,9 +81,6 @@
     <ClInclude Include="BGIOTimer.h">
       <Filter>Common\Timer</Filter>
     </ClInclude>
-    <ClInclude Include="BGIOThread.h">
-      <Filter>Common\Timer</Filter>
-    </ClInclude>
     <ClInclude Include="BGLock.h">
       <Filter>Common\Lock</Filter>
     </ClInclude>
@@ -92,6 +89,9 @@
     </ClInclude>
     <ClInclude Include="BGIOTimerThread.h">
       <Filter>Common\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOThread.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -125,9 +125,6 @@
     <ClCompile Include="BGIOServer.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="BGIOThread.cpp">
-      <Filter>Common\Timer</Filter>
-    </ClCompile>
     <ClCompile Include="BGLock.cpp">
       <Filter>Common\Lock</Filter>
     </ClCompile>
@@ -136,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="BGIOTimerThread.cpp">
       <Filter>Common\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOThread.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

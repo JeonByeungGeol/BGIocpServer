@@ -10,18 +10,15 @@ static long g_nStop;
 
 BGIOBuffer * BGIOBuffer::Alloc()
 {
-	//int index1 = InterlockedIncrement(&g_nAllocBuffer);
-	//int index2 = index1 & (BUFFER_POOL_SIZE - 1);
-
 	BGSlot* pSlot = &g_slotBuffer[InterlockedIncrement(&g_nAllocBuffer) & (BUFFER_POOL_SIZE - 1)];
 	BGIOBuffer* newBuffer{ nullptr };
-	pSlot->m_lock.lock();
+	pSlot->m_lock.Enter();
 	if ((newBuffer = pSlot->m_pBuffer) != nullptr) {
 		pSlot->m_pBuffer = newBuffer->m_pNext;
-		pSlot->m_lock.unlock();
+		pSlot->m_lock.Leave();
 	}
 	else {
-		pSlot->m_lock.unlock();
+		pSlot->m_lock.Leave();
 		newBuffer = new BGIOBuffer;
 	}
 	
@@ -38,13 +35,13 @@ void BGIOBuffer::FreeAll()
 
 	for (int i = 0; i < BUFFER_POOL_SIZE; i++) {
 		BGSlot* pSlot = &g_slotBuffer[i];
-		pSlot->m_lock.lock();
+		pSlot->m_lock.Enter();
 		BGIOBuffer* pBuffer{ nullptr };
 		while ((pBuffer = pSlot->m_pBuffer) != nullptr) {
 			pSlot->m_pBuffer = pBuffer->m_pNext;
 			delete pBuffer;
 		}
-		pSlot->m_lock.unlock();
+		pSlot->m_lock.Leave();
 	}
 }
 
@@ -56,8 +53,8 @@ void BGIOBuffer::Free()
 	}
 	
 	BGSlot* pSlot = &g_slotBuffer[InterlockedDecrement(&g_nFreeBuffer) & (BUFFER_POOL_SIZE - 1)];
-	pSlot->m_lock.lock();
+	pSlot->m_lock.Enter();
 	m_pNext = pSlot->m_pBuffer;
 	pSlot->m_pBuffer = this;
-	pSlot->m_lock.unlock();
+	pSlot->m_lock.Leave();
 }
