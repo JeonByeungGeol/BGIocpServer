@@ -152,6 +152,7 @@
     <ClInclude Include="BGIOCompletionHandler.h" />
     <ClInclude Include="BGIOObject.h" />
     <ClInclude Include="BGIOServer.h" />
+    <ClInclude Include="BGIOSocket.h" />
     <ClInclude Include="BGIOThread.h" />
     <ClInclude Include="BGIOTimer.h" />
     <ClInclude Include="BGIOTimerThread.h" />
@@ -171,6 +172,7 @@
     <ClCompile Include="BGIocpServer.cpp" />
     <ClCompile Include="BGIOObject.cpp" />
     <ClCompile Include="BGIOServer.cpp" />
+    <ClCompile Include="BGIOSocket.cpp" />
     <ClCompile Include="BGIOThread.cpp" />
     <ClCompile Include="BGIOTimerThread.cpp" />
     <ClCompile Include="BGLock.cpp" />

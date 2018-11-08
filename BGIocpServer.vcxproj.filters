@@ -37,6 +37,9 @@
     <Filter Include="Common\Buffer">
       <UniqueIdentifier>{f32ab34b-4b32-4652-a522-2b7183aa14fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\Socket">
+      <UniqueIdentifier>{acbbf7bf-d6ff-49c1-95dc-3f0cb40f2fb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -93,6 +96,9 @@
     <ClInclude Include="BGIOThread.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="BGIOSocket.h">
+      <Filter>Common\Socket</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -136,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="BGIOThread.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOSocket.cpp">
+      <Filter>Common\Socket</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
