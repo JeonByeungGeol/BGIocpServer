@@ -3,10 +3,13 @@
 #include "BGIOBuffer.h"
 #include "BGIOCompletionHandler.h"
 
-#include <WinSock2.h>
-
 BGIOSocket::BGIOSocket(SOCKET s)
 {
+	WSADATA wsaData;
+	if(WSAStartup(MAKEWORD(1,1), &wsaData) != 0)
+	{ fprintf(stderr, "WSAStartup failed.\n"); exit(1); }
+
+
 	m_hSocket = s;
 	if (m_hSocket != INVALID_SOCKET)
 		AddRef();
@@ -43,9 +46,9 @@ void BGIOSocket::Initialize(BGIOCompletionHandler* pIOCPHandler)
 	}
 
 	int zero{ 0 };
-	setsocketopt(m_hSocket, SOL_SOCKET, SO_RCVBUF, (char*)&zero, sizeof(zero));
+	setsockopt(m_hSocket, SOL_SOCKET, SO_RCVBUF, (char*)&zero, sizeof(zero));
 	zero = 0;
-	setsocketopt(m_hSocket, SOL_SOCKET, SO_SNDBUF, (char*)&zero, sizeof(zero));
+	setsockopt(m_hSocket, SOL_SOCKET, SO_SNDBUF, (char*)&zero, sizeof(zero));
 
 	OnCreate();
 }
@@ -63,7 +66,7 @@ void BGIOSocket::Close()
 		LINGER linger;
 		linger.l_onoff = 1;
 		linger.l_linger = 0;
-		setsocketopt(hSocket, SOL_SOCKET, SO_LINGER, (char*)&linger, sizeof(linger));
+		setsockopt(hSocket, SOL_SOCKET, SO_LINGER, (char*)&linger, sizeof(linger));
 		closesocket(hSocket);
 		Release();
 	}
