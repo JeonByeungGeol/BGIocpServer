@@ -26,6 +26,10 @@ public:
 	/** 스레드가 종료 직전에 호출되는 함수입니다.*/
 	virtual	void			OnTerminate() {}
 	
+protected:
+	/** 스레드에 동록된 IOCP객체 입니다.*/
+	BGIOCompletionHandler*	m_pIOCPHandler;
+
 private:
 	/** 동작 여부*/
 	BOOL					m_bStarted;
@@ -33,9 +37,6 @@ private:
 	/** 스레드 포인터*/
 	std::thread*			m_pThread;
 	
-	/** 스레드에 동록된 IOCP객체 입니다.*/
-	BGIOCompletionHandler*	m_pIOCPHandler;
-
 	/** 스레드 실행 함수 입니다.*/
 	virtual void Run() {}
 
