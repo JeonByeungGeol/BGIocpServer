@@ -2,6 +2,8 @@
 
 #include "BGLock.h"
 
+#define BUFFER_SIZE 8000
+
 class BGIOBuffer
 {
 public:
@@ -30,7 +32,7 @@ public:
 	}
 
 
-private:
+public:
 	/** IO°´Ã¼ °ü¸® Ref*/
 	LONG					m_nRef;
 
