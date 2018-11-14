@@ -2,7 +2,7 @@
 #include "BGIOServer.h"
 
 #include "BGIOCompletionHandler.h"
-//#include "BGIOSocket.h"
+#include "BGIOSocket.h"
 #include "BGIOAcceptThread.h"
 
 BGIOServer::BGIOServer()
@@ -94,7 +94,6 @@ void BGIOServer::OnIOCallback()
 		closesocket(newSocket);
 		return;
 	}
-
-	//pSocket->Initialize(_pIOCPHandler);
-	//pSocket->Release();
+	pSocket->Initialize(m_pIOCPHandler);
+	pSocket->Release();
 }

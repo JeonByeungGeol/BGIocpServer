@@ -22,8 +22,13 @@ public:
 			void			Stop();
 
 protected:
+	/** AcceptThread에서 이벤트가 발생했을 때 호출*/
 	virtual	void			OnWaitCallback();
+
+	/** IOCP Handler를 통해 호출되는 함수*/
 	virtual	void			OnIOCallback();
+
+	/** 클라이언트 접속 처리*/
 	virtual	BGIOSocket*		CreateSocket(SOCKET s, sockaddr_in* addr) = 0;
 
 
