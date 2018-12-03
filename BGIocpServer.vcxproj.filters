@@ -13,35 +13,32 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Common">
-      <UniqueIdentifier>{af7232bd-4c41-471c-bc65-c8d845f7bbf4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="싱글톤">
-      <UniqueIdentifier>{3fc846b5-fd33-4b20-b8ee-46849ea762b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="로그">
-      <UniqueIdentifier>{d5a83711-832d-4eb7-b283-a5f6b60d6716}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="설정">
-      <UniqueIdentifier>{55ec0262-7625-46c8-821b-b4163ad630db}</UniqueIdentifier>
-    </Filter>
     <Filter Include="공통">
       <UniqueIdentifier>{be551d39-3795-471d-b2f6-21a7ecab6d3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Common\Timer">
-      <UniqueIdentifier>{b4a13624-3a75-4db6-ab97-9497e10b6981}</UniqueIdentifier>
+    <Filter Include="공통\로그">
+      <UniqueIdentifier>{d5a83711-832d-4eb7-b283-a5f6b60d6716}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Common\Lock">
+    <Filter Include="공통\설정">
+      <UniqueIdentifier>{55ec0262-7625-46c8-821b-b4163ad630db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="공통\싱글톤">
+      <UniqueIdentifier>{3fc846b5-fd33-4b20-b8ee-46849ea762b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOCommon">
+      <UniqueIdentifier>{af7232bd-4c41-471c-bc65-c8d845f7bbf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOCommon\Lock">
       <UniqueIdentifier>{cbe7ad3d-5004-4269-8ee2-61e8f3b89337}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Common\Buffer">
+    <Filter Include="IOCommon\Buffer">
       <UniqueIdentifier>{f32ab34b-4b32-4652-a522-2b7183aa14fc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Common\Socket">
-      <UniqueIdentifier>{acbbf7bf-d6ff-49c1-95dc-3f0cb40f2fb5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Common\Thread">
+    <Filter Include="IOCommon\Thread">
       <UniqueIdentifier>{c3688f37-39c9-44a2-adf6-bfbf4bbd3075}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOCommon\BasicObject">
+      <UniqueIdentifier>{f01f24db-d77d-442d-b129-13a2a08e89f7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -55,55 +52,55 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="BGLog.h">
-      <Filter>로그</Filter>
+      <Filter>공통\로그</Filter>
     </ClInclude>
     <ClInclude Include="BGLogEnum.h">
-      <Filter>로그</Filter>
+      <Filter>공통\로그</Filter>
     </ClInclude>
     <ClInclude Include="BGLogManager.h">
-      <Filter>로그</Filter>
+      <Filter>공통\로그</Filter>
     </ClInclude>
     <ClInclude Include="BGSingleton.h">
-      <Filter>싱글톤</Filter>
+      <Filter>공통\싱글톤</Filter>
     </ClInclude>
     <ClInclude Include="BGConfigManager.h">
-      <Filter>설정</Filter>
+      <Filter>공통\설정</Filter>
     </ClInclude>
     <ClInclude Include="BGConst.h">
       <Filter>공통</Filter>
     </ClInclude>
-    <ClInclude Include="BGIOObject.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="BGIOCompletionHandler.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="BGIOServer.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="BGIOTimer.h">
-      <Filter>Common\Timer</Filter>
-    </ClInclude>
     <ClInclude Include="BGLock.h">
-      <Filter>Common\Lock</Filter>
+      <Filter>IOCommon\Lock</Filter>
     </ClInclude>
     <ClInclude Include="BGIOBuffer.h">
-      <Filter>Common\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="BGIOSocket.h">
-      <Filter>Common\Socket</Filter>
-    </ClInclude>
-    <ClInclude Include="BGIOThread.h">
-      <Filter>Common\Thread</Filter>
+      <Filter>IOCommon\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="BGIOAcceptThread.h">
-      <Filter>Common\Thread</Filter>
+      <Filter>IOCommon\Thread</Filter>
     </ClInclude>
     <ClInclude Include="BGIOTimerThread.h">
-      <Filter>Common\Thread</Filter>
+      <Filter>IOCommon\Thread</Filter>
     </ClInclude>
     <ClInclude Include="BGIOWorkerThread.h">
-      <Filter>Common\Thread</Filter>
+      <Filter>IOCommon\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOThread.h">
+      <Filter>IOCommon\BasicObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOObject.h">
+      <Filter>IOCommon\BasicObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOServer.h">
+      <Filter>IOCommon\BasicObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOSocket.h">
+      <Filter>IOCommon\BasicObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOTimer.h">
+      <Filter>IOCommon\BasicObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOCompletionHandler.h">
+      <Filter>IOCommon\BasicObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -114,51 +111,51 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="BGLog.cpp">
-      <Filter>로그</Filter>
+      <Filter>공통\로그</Filter>
     </ClCompile>
     <ClCompile Include="BGLogManager.cpp">
-      <Filter>로그</Filter>
+      <Filter>공통\로그</Filter>
     </ClCompile>
     <ClCompile Include="BGSingleton.cpp">
-      <Filter>싱글톤</Filter>
+      <Filter>공통\싱글톤</Filter>
     </ClCompile>
     <ClCompile Include="BGConfigManager.cpp">
-      <Filter>설정</Filter>
-    </ClCompile>
-    <ClCompile Include="BGIOObject.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="BGIOCompletionHandler.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="BGIOServer.cpp">
-      <Filter>Common</Filter>
+      <Filter>공통\설정</Filter>
     </ClCompile>
     <ClCompile Include="BGLock.cpp">
-      <Filter>Common\Lock</Filter>
+      <Filter>IOCommon\Lock</Filter>
     </ClCompile>
     <ClCompile Include="BGIOBuffer.cpp">
-      <Filter>Common\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="BGIOSocket.cpp">
-      <Filter>Common\Socket</Filter>
-    </ClCompile>
-    <ClCompile Include="BGIOThread.cpp">
-      <Filter>Common\Thread</Filter>
+      <Filter>IOCommon\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="BGIOAcceptThread.cpp">
-      <Filter>Common\Thread</Filter>
+      <Filter>IOCommon\Thread</Filter>
     </ClCompile>
     <ClCompile Include="BGIOTimerThread.cpp">
-      <Filter>Common\Thread</Filter>
+      <Filter>IOCommon\Thread</Filter>
     </ClCompile>
     <ClCompile Include="BGIOWorkerThread.cpp">
-      <Filter>Common\Thread</Filter>
+      <Filter>IOCommon\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOThread.cpp">
+      <Filter>IOCommon\BasicObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOObject.cpp">
+      <Filter>IOCommon\BasicObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOServer.cpp">
+      <Filter>IOCommon\BasicObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOSocket.cpp">
+      <Filter>IOCommon\BasicObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOCompletionHandler.cpp">
+      <Filter>IOCommon\BasicObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="bg_config.ini">
-      <Filter>설정</Filter>
+      <Filter>공통\설정</Filter>
     </None>
   </ItemGroup>
 </Project>
