@@ -32,6 +32,7 @@ void BGIOObject::Release(LONG volatile * pRef)
 		// EBREAK(); 추후 StackWorker 사용
 		*pRef = 100;
 		m_nRef = 100;
+		return;
 	}
 
 	nRef = InterlockedDecrement(&m_nRef);
@@ -52,22 +53,32 @@ void BGIOObject::Release(LONG volatile * pRef)
 		return;
 	}
 
-
-
 	OnFree();
 }
 
+/**
+ * 객체는 ref카운트를 관리하고, Release함수에서 호출된다.
+*/
 void BGIOObject::OnFree()
 {
 	delete this;
 }
 
+/**
+ * n64Time이후에 타이머 nId번 동작을 실행합니다.
+*/
 void BGIOObject::AddTimer(ULONGLONG n64Time, int nId)
 {
 	AddRef(&m_nTimerRef);
 	BGIOTimerThread::AddTimer(this, n64Time, nId);
 }
 
+/**
+ * BGIOObject객체는 상위 클래스이다.
+ * OnTimer함수는 보통 OnTimerCallback에서 호출하지만
+ * OnIOCallback함수와 OnTimerCallback함수를 따로 정의하지 않으면
+ * 이곳에서 OnTimer가 호출된다.
+*/
 void BGIOObject::OnIOCallback(BOOL bSuccess, DWORD dwTransferred, LPOVERLAPPED lpOverlapped)
 {
 	OnTimer(dwTransferred);

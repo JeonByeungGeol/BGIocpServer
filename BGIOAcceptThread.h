@@ -11,19 +11,21 @@ public:
 	virtual ~BGIOAcceptThread();
 
 	/** 스레드 동작 함수입니다.*/
-	virtual void Run();
+	virtual void			Run();
 
 	/** 스레드가 종료하기 직전에 호출되는 함수입니다.*/
-	virtual void OnTerminate();
+	virtual void			OnTerminate();
+
+
 
 protected:
 	/**
 	 첫 번째는 selectevent모델에서 사용하는 핸들
 	 두 번째는 종료이벤트
 	*/
-	HANDLE m_vHandle[2];
+	HANDLE					m_vHandle[2];
 
-	/** 부모 서버 객체입니다*/
-	BGIOObject* m_pObject;
+	/** AcceptThread를 관리할 객체(서버)입니다. */
+	BGIOObject*				m_pObject;
 };
 

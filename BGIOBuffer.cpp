@@ -8,6 +8,11 @@ static long g_nAllocBuffer = -1;
 static long g_nFreeBuffer = 0;
 static long g_nStop;
 
+/**
+ * 버퍼를 할당한다.
+ * 이때, 항상 메모리를 할당받지 않고,
+ * 이전에 할당받은 메모리를 다 사용하였다면 재활용한다.
+*/
 BGIOBuffer * BGIOBuffer::Alloc()
 {
 	BGSlot* pSlot = &g_slotBuffer[InterlockedIncrement(&g_nAllocBuffer) & (BUFFER_POOL_SIZE - 1)];

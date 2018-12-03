@@ -24,6 +24,9 @@ BGIOThread::~BGIOThread()
 {
 }
 
+/**
+ * 이곳에서 스레드 생성 및 실행 후에 s_threadList에 등록한다.
+*/
 void BGIOThread::Begin(BGIOCompletionHandler * pIOCPHandler)
 {
 	if (m_bStarted == TRUE) {

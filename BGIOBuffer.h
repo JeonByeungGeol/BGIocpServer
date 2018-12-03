@@ -11,7 +11,7 @@ public:
 	{
 	public:
 			BGIOBuffer*		m_pBuffer;
-			BGIOSpinLock		m_lock;
+			BGIOSpinLock	m_lock;
 
 			BGSlot() : m_pBuffer(nullptr) {};
 	};

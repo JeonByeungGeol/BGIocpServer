@@ -26,6 +26,11 @@ BOOL BGIOCompletionHandler::Init()
 	return TRUE;
 }
 
+/**
+ * 인자
+ * handle : 등록할 소켓
+ * key : 연결 객체 포인터
+*/
 BOOL BGIOCompletionHandler::HandleAdd(HANDLE handle, ULONG_PTR key)
 {
 	if (CreateIoCompletionPort(handle, m_hCompletionPort, key, 0) == nullptr) {

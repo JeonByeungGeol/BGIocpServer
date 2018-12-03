@@ -102,7 +102,7 @@ void BGIOTimerThread::Run()
 			continue;
 		}
 		else if (dwWaitResult == (WAIT_OBJECT_0 + 1)) {
-			// 현재 시점 남은 타이머 동작 실행 후 종료
+			// 현재 시점 남은 타이머 동작 하지 않고 해제 후 종료
 			s_lockTimer.Enter();
 			s_nStop = TRUE;
 			for (; ;) {

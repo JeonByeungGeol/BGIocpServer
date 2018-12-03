@@ -14,13 +14,15 @@ public:
 	public:
 		virtual void			OnTimerCallback(int id = 0);
 	};
-
-
+	
 
 
 	/** static 멤버*/
 public:
-	/** 해당 함수를 호출해야 타이머 스레드가 시작됩니다.*/
+	/** 해당 함수를 호출해야 타이머 스레드가 시작됩니다.
+	 * 호출 시마다 BGIOTimerThread 객체가 생성됩니다.
+	 * 반드시 한번만 호출되어야 합니다.
+	 */
 	static	void					Init();
 
 	/** 타이머 객체를 추가합니다.*/
@@ -44,6 +46,8 @@ public:
 	/** 타이머가 비어있지 않도록 하기 위한 객체*/
 	static	BGIOTimerInstance		s_TimerInstance;
 	
+
+
 public:
 	BGIOTimerThread();
 	virtual ~BGIOTimerThread();

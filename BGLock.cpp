@@ -3,10 +3,8 @@
 
 
 #include <shared_mutex>
-void test()
-{
-	std::shared_lock<std::shared_mutex> lock;
-}
+
+#pragma	warning( disable: 4146)	// unary minus operator applied to unsigned type, result still unsigned
 
 //------------------------------- ABCDE ==================================//
 //----------------------------------------------------------------------
@@ -202,6 +200,7 @@ void BGRWLock::ReadLock()
 {
 	IncPendingLock();
 
+
 	int nCount;
 
 	nCount = InterlockedIncrement(&m_nCount);
@@ -211,7 +210,36 @@ void BGRWLock::ReadLock()
 		nCount = m_nCount;
 		do
 		{
+			if (nCount >= 0)
+			{
+				nCount = InterlockedExchangeAdd(&m_nCount, 0x80000000 - 1) + 0x80000000 - 1;
+				if ((short)nCount == 0)
+				{
+					Leave();
+					SetEvent(m_hWEvent);
+				}
+				else
+					Leave();
 
+				WaitForSingleObject(m_hWEvent, INFINITE);
+				Enter();
+				nCount = InterlockedExchangeAdd(&m_nCount, -0x80000000 + 1) -0x80000000 + 1;
+			}
+			else
+			{
+				nCount = InterlockedExchangeAdd(&m_nCount, 0x10000 - 1) + 0x10000 - 1;
+				if ((short)nCount == 0)
+				{
+					Leave();
+					SetEvent(m_hWEvent);
+				}
+				else
+					Leave();
+
+				WaitForSingleObject(m_hREvent, INFINITE);
+				Enter();
+				nCount = InterlockedExchangeAdd(&m_nCount, -0x10000 + 1) -0x10000 + 1;
+			}
 		} while ((nCount & 0xff00) != 0);
 
 		if (nCount & 0xff0000)
@@ -222,7 +250,6 @@ void BGRWLock::ReadLock()
 		else
 			Leave();
 	}
-
 }
 
 void BGRWLock::ReadUnlock()

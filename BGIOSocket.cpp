@@ -5,11 +5,6 @@
 
 BGIOSocket::BGIOSocket(SOCKET s)
 {
-	WSADATA wsaData;
-	if(WSAStartup(MAKEWORD(1,1), &wsaData) != 0)
-	{ fprintf(stderr, "WSAStartup failed.\n"); exit(1); }
-
-
 	m_hSocket = s;
 	if (m_hSocket != INVALID_SOCKET)
 		AddRef();

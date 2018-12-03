@@ -16,16 +16,25 @@ private:
 	static	THREADLIST		s_threadList;
 	
 
+
 public:
 	BGIOThread();
 	virtual ~BGIOThread();
 
 	/** 스레드를 생성하여 Run 함수를 실행합니다.*/
-	void					Begin(BGIOCompletionHandler* pIOCPHandler);
+			void			Begin(BGIOCompletionHandler* pIOCPHandler);
 	
 	/** 스레드가 종료 직전에 호출되는 함수입니다.*/
 	virtual	void			OnTerminate() {}
-	
+private:
+	/** 스레드 실행 함수 입니다.*/
+	virtual void			Run() {}
+
+	/** 스레드함수를 멤버함수로 동작하기 위한 함수입니다.*/
+			std::thread*	spawn();
+
+
+
 protected:
 	/** 스레드에 동록된 IOCP객체 입니다.*/
 	BGIOCompletionHandler*	m_pIOCPHandler;
@@ -36,11 +45,5 @@ private:
 
 	/** 스레드 포인터*/
 	std::thread*			m_pThread;
-	
-	/** 스레드 실행 함수 입니다.*/
-	virtual void Run() {}
-
-	/** 스레드함수를 멤버함수로 동작하기 위한 함수입니다.*/
-	std::thread* spawn();
 };
 
