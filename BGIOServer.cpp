@@ -19,6 +19,10 @@ BGIOServer::~BGIOServer()
 	Close();
 }
 
+/**
+ * 소켓 생성 -> Bind -> Listen 이후에
+ * AcceptEvent 생성, eventSelect 시작, AcceptThread 생성 후 동작합니다.
+*/
 bool BGIOServer::Start(BGIOCompletionHandler * pIOCPHandler, int nPort)
 {
 	m_pIOCPHandler = pIOCPHandler;
@@ -55,6 +59,9 @@ bool BGIOServer::Start(BGIOCompletionHandler * pIOCPHandler, int nPort)
 	return true;
 }
 
+/**
+ * 소켓 종료, AcceptEvent 제거
+*/
 void BGIOServer::Close()
 {
 	if (m_hSocket != INVALID_SOCKET) {
@@ -67,6 +74,9 @@ void BGIOServer::Close()
 	}
 }
 
+/**
+ * 소켓 종료
+*/
 void BGIOServer::Stop()
 {
 	SOCKET hSocket = m_hSocket;
@@ -74,12 +84,21 @@ void BGIOServer::Stop()
 	closesocket(hSocket);
 }
 
+/**
+ * AcceptEvent에 신호가 들어왔을 때
+ * AccetpThread에서 해당 함수가 호출되고, IOCP객체에 전달합니다.
+ * 직접 처리하지 않고 WorkerThread에서 처리를 맡기는 이유는 스레드 풀을 관리해주는 IOCP의 기능을 이용하기 위함입니다.
+*/
 void BGIOServer::OnWaitCallback()
 {
 	WSAResetEvent(m_hAcceptEvent);
 	m_pIOCPHandler->Post(0, this);
 }
 
+/**
+ * IOCP객체에서 작업이 들어오면 해당함수가 호출됩니다.
+ * accept를 진행하고, 후처리 작업(CreateSocket함수)을 진행합니다.
+*/
 void BGIOServer::OnIOCallback()
 {
 	struct sockaddr_in clientAddress;

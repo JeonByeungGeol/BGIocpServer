@@ -28,7 +28,7 @@ protected:
 	/** IOCP Handler를 통해 호출되는 함수*/
 	virtual	void			OnIOCallback();
 
-	/** 클라이언트 접속 처리*/
+	/** 클라이언트 접속 후 처리*/
 	virtual	BGIOSocket*		CreateSocket(SOCKET s, sockaddr_in* addr) = 0;
 
 
