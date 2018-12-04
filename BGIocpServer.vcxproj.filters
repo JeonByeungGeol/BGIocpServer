@@ -40,6 +40,9 @@
     <Filter Include="IOCommon\BasicObject">
       <UniqueIdentifier>{f01f24db-d77d-442d-b129-13a2a08e89f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BGTest">
+      <UniqueIdentifier>{14615b2b-39d3-4130-aa40-83c8d4474483}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -102,6 +105,12 @@
     <ClInclude Include="BGIOCompletionHandler.h">
       <Filter>IOCommon\BasicObject</Filter>
     </ClInclude>
+    <ClInclude Include="BGIOTerminate.h">
+      <Filter>IOCommon\BasicObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BGLayer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -151,6 +160,12 @@
     </ClCompile>
     <ClCompile Include="BGIOCompletionHandler.cpp">
       <Filter>IOCommon\BasicObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOTerminate.cpp">
+      <Filter>IOCommon\BasicObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BGLayer.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

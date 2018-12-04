@@ -153,10 +153,12 @@
     <ClInclude Include="BGIOObject.h" />
     <ClInclude Include="BGIOServer.h" />
     <ClInclude Include="BGIOSocket.h" />
+    <ClInclude Include="BGIOTerminate.h" />
     <ClInclude Include="BGIOThread.h" />
     <ClInclude Include="BGIOTimer.h" />
     <ClInclude Include="BGIOTimerThread.h" />
     <ClInclude Include="BGIOWorkerThread.h" />
+    <ClInclude Include="BGLayer.h" />
     <ClInclude Include="BGLock.h" />
     <ClInclude Include="BGLog.h" />
     <ClInclude Include="BGLogEnum.h" />
@@ -174,9 +176,11 @@
     <ClCompile Include="BGIOObject.cpp" />
     <ClCompile Include="BGIOServer.cpp" />
     <ClCompile Include="BGIOSocket.cpp" />
+    <ClCompile Include="BGIOTerminate.cpp" />
     <ClCompile Include="BGIOThread.cpp" />
     <ClCompile Include="BGIOTimerThread.cpp" />
     <ClCompile Include="BGIOWorkerThread.cpp" />
+    <ClCompile Include="BGLayer.cpp" />
     <ClCompile Include="BGLock.cpp" />
     <ClCompile Include="BGLog.cpp" />
     <ClCompile Include="BGLogManager.cpp" />
