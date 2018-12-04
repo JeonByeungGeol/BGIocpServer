@@ -2,6 +2,7 @@
 #include "BGIOWorkerThread.h"
 #include "BGIOCompletionHandler.h"
 #include "BGIOObject.h"
+#include "BGIOTerminate.h"
 
 long				BGIOWorkerThread::s_nRunningThread;
 
@@ -35,16 +36,9 @@ void BGIOWorkerThread::Run()
 
 void BGIOWorkerThread::OnTerminate()
 {
-	HANDLE hEvent = CreateEvent(nullptr, false, false, nullptr);
-	if (hEvent == nullptr)
-	{
-		BG_LOG_ERROR("Create Event Fail");
-		return;
-	}
-	
-	//BGIOTerminate Terminate;
-	//Terminate.PostObject(m_pIOCPHandler, hEvent);
+	BGIOTerminate Terminate;
+	Terminate.PostObject(m_pIOCPHandler, m_pThread);
 
-	WaitForSingleObject(hEvent, INFINITE);
-	CloseHandle(hEvent);
+	m_pThread->join();
+	
 }
