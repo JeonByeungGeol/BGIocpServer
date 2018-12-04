@@ -31,4 +31,6 @@ void BGIOAcceptThread::Run()
 void BGIOAcceptThread::OnTerminate()
 {
 	SetEvent(m_vHandle[1]);
+	m_pThread->join();
+	BG_LOG_INFO("thread join");
 }

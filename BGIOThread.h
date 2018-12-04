@@ -39,11 +39,11 @@ protected:
 	/** 스레드에 동록된 IOCP객체 입니다.*/
 	BGIOCompletionHandler*	m_pIOCPHandler;
 
-private:
-	/** 동작 여부*/
-	BOOL					m_bStarted;
-
 	/** 스레드 포인터*/
 	std::thread*			m_pThread;
+
+private:
+	/** 동작 여부*/
+	BOOL					m_bStarted;	
 };
 
