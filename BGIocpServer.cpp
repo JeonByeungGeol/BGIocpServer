@@ -2,10 +2,16 @@
 //
 
 #include "stdafx.h"
-#include "BGLock.h"
-#include "BGIOBuffer.h"
+
+#include "BGLayer.h"
+#include "BGMainConfig.h"
+#include "BGIOTimerThread.h"
 
 #include <WinSock2.h>
+
+// test
+#include "BGTestTimerObject.h"
+
 int main()
 {
 	WSADATA wsaData;
@@ -15,18 +21,42 @@ int main()
 		return 0;
 	}
 
+	
+	if (false == BGMainConfig::Open()) {
+		std::cout << "MainConfig Open Fail" << std::endl;
+		return -1;
+	}
 
-	std::cout << "-----------------------main start-----------------------" << std::endl;
-	g_Config.Load();
-	g_LogManager.Start();
+	if (false == g_LogManager.Start()) {
+		std::cout << "LogManager Start Fail" << std::endl;
+		return -1;
+	}
+	
+	BGLayer::Add(BGMainConfig::s_nNumberOfThreads);
 
-	std::cout << "------test start--------" << std::endl;
 
-	std::cout << "--------test end----------" << std::endl;
+	
+		
+	BGIOTimerThread::Init();
+
+	BG_LOG_INFO("Server Start");
+
+	BGTestTimerObject* testTimerObj = new BGTestTimerObject{};
+	BGIOTimerThread::AddTimer(testTimerObj, 1000, 0);
+	BGIOTimerThread::AddTimer(testTimerObj, 5000, 1);
+	BGIOTimerThread::AddTimer(testTimerObj, 10000, 2);
+
+
+
+
+	for (; ;)
+	{
+		Sleep(1000);
+	}
+
+	BG_LOG_INFO("Server Stop");
 	
 	g_LogManager.Stop();
-
-	std::cout << "-----------------------main end-----------------------" << std::endl;
 
     return 0;
 }

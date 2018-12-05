@@ -109,7 +109,13 @@
       <Filter>IOCommon\BasicObject</Filter>
     </ClInclude>
     <ClInclude Include="BGLayer.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>IOCommon\BasicObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BGMainConfig.h">
+      <Filter>BGTest</Filter>
+    </ClInclude>
+    <ClInclude Include="BGTestTimerObject.h">
+      <Filter>BGTest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -165,7 +171,13 @@
       <Filter>IOCommon\BasicObject</Filter>
     </ClCompile>
     <ClCompile Include="BGLayer.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>IOCommon\BasicObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BGMainConfig.cpp">
+      <Filter>BGTest</Filter>
+    </ClCompile>
+    <ClCompile Include="BGTestTimerObject.cpp">
+      <Filter>BGTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

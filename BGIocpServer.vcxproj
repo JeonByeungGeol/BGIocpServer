@@ -163,7 +163,9 @@
     <ClInclude Include="BGLog.h" />
     <ClInclude Include="BGLogEnum.h" />
     <ClInclude Include="BGLogManager.h" />
+    <ClInclude Include="BGMainConfig.h" />
     <ClInclude Include="BGSingleton.h" />
+    <ClInclude Include="BGTestTimerObject.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -184,7 +186,9 @@
     <ClCompile Include="BGLock.cpp" />
     <ClCompile Include="BGLog.cpp" />
     <ClCompile Include="BGLogManager.cpp" />
+    <ClCompile Include="BGMainConfig.cpp" />
     <ClCompile Include="BGSingleton.cpp" />
+    <ClCompile Include="BGTestTimerObject.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
