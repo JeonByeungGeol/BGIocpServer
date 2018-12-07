@@ -37,10 +37,22 @@ void BGIOWorkerThread::Run()
 
 void BGIOWorkerThread::OnTerminate()
 {
+	HANDLE hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+	if (hEvent == NULL)
+	{
+		BG_LOG_ERROR("Create Event Fail");
+		return;
+	}
+
 	BGIOTerminate Terminate;
-	Terminate.PostObject(m_pIOCPHandler, m_pThread);
-	
-	//m_pThread->join();
-	//std::cout << "WorkerThread Terminate" << std::endl;
+	Terminate.PostObject(m_pIOCPHandler, m_pThread, hEvent);
+		
+	// c++11에서 스레드를 강제종료하는 기능이 따로 없어,
+	// native_handle을 얻어온 이후에 SuspendThread를 호출
+	// 종료 확인은 SuspendThread호출 이후, event기능을 사용
+	// -> std::thread join() 기능 대신 event를 사용
+	WaitForSingleObject(hEvent, INFINITE);
+	CloseHandle(hEvent);
+
 	BG_LOG_DEBUG("WorkerThread Terminate");
 }
