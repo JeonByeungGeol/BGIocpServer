@@ -31,9 +31,32 @@ bool BGMainConfig::Open()
 		return false;
 	}
 
-	s_strTitle = g_Config.GetString("serverName");
+	s_strTitle				= g_Config.GetString("serverName");
 
-	s_nNumberOfThreads = g_Config.GetInt("workerThreadNum");
+	s_nNumberOfThreads		= g_Config.GetInt("workerThreadNum");
+
+	s_nMaxUser = g_Config.GetInt("maxUser");
+
+	s_nPort = BG_SERVER_PORT;
+
+
+
+	s_nServer;
+	s_nServerType;
+	s_strNormalRedis;
+	s_nNormalRedisPort;
+	s_vDBServer;
+	s_strNormalServer;
+	s_nNormalPort;
+	s_vGameServer;
+	s_strGameServer;
+	s_nGamePort;
+	s_vHttpServer;
+	s_strHttpServer;
+	s_nHttpPort;
+	s_nWantedProb;
+	s_nWhiteListConnect;
+	s_mapWhiteList;
 
 	return true;
 }

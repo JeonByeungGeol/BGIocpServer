@@ -8,3 +8,7 @@ static const int BG_SESSION_POOL_SIZE = 10001;
 
 /** IO 버퍼 크기*/
 static const int BG_BUFFER_SIZE = 4096;
+
+
+/** 서버 포트*/
+static const int BG_SERVER_PORT = 8800;

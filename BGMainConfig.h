@@ -52,6 +52,12 @@ public:
 	static	std::string					s_strNormalRedis;
 	static	UINT						s_nNormalRedisPort;
 
+	/** 테스트 임시 서버 */
+	static ServerVector					s_vTestServer;
+	static std::string					s_strTestServer;
+	static UINT							s_nTestPort;
+
+
 	/** DB 서버 */
 	static	ServerVector				s_vDBServer;
 	static	std::string					s_strNormalServer;
