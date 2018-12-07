@@ -9,6 +9,7 @@ void BGIOThread::Terminate()
 	for (auto &th : s_threadList) {
 		th->OnTerminate();
 		delete th;
+		th = nullptr;
 	}
 
 	s_threadList.clear();
