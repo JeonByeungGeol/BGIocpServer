@@ -12,6 +12,7 @@ BOOL								BGIOTimerThread::s_nStop;
 void BGIOTimerThread::BGIOTimerInstance::OnTimerCallback(int nId)
 {
 	// 타이머 큐가 비어있는 상태를 만들지 않기 위함
+	this->m_nTimerRef++;
 	s_timerQueue.push( BGIOTimer( (BGIOObject*)this, GetTickCount64() + 24 * 3600 * 1000, nId) );
 	s_n64TopTime = s_timerQueue.top().m_n64Time;
 }
@@ -65,6 +66,8 @@ void BGIOTimerThread::AddTimer(BGIOObject* pObject, ULONGLONG n64Time, int nId)
 
 void BGIOTimerThread::Run()
 {
+	BG_LOG_DEBUG("TimerThread Run On");
+
 	s_nStop = FALSE;
 
 	for (; ;) {
@@ -116,11 +119,13 @@ void BGIOTimerThread::Run()
 			break;
 		}
 	}
+
+	BG_LOG_DEBUG("TimerThread Run Off");
 }
 
 void BGIOTimerThread::OnTerminate()
 {
 	SetEvent(m_vHandle[1]);
 	m_pThread->join();
-	BG_LOG_INFO("thread join");
+	BG_LOG_DEBUG("TimerThread Terminate");
 }

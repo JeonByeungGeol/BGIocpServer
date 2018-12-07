@@ -19,8 +19,10 @@ void BGTestServer::Start(int nLayerId)
 {
 	int nResult = g_server.BGIOServer::Start( BGLayer::GetIOCP(nLayerId), BGMainConfig::s_nPort);
 	if (nResult == false) {
-		BG_LOG_ERROR("BGIOServer Start Fail | nLayerId:%d, s_nPort:%d", nLayerId, BGMainConfig::s_nPort);
+		BG_LOG_ERROR("BGIOServer Start Fail || nLayerId:%d, s_nPort:%u", nLayerId, BGMainConfig::s_nPort);
 	}
+
+	BG_LOG_DEBUG("%s Server Start(%u)", BGMainConfig::s_strTitle.c_str(), BGMainConfig::s_nPort);
 }
 
 BGIOSocket* BGTestServer::CreateSocket(SOCKET newSocket, sockaddr_in* addr)
@@ -59,6 +61,8 @@ void BGTestServer::Stop()
 	// pSocket->CloseSocket();
 
 	g_lock.ReadUnlock();
+
+	BG_LOG_DEBUG("%s Server Stop(%u)", BGMainConfig::s_strTitle.c_str(), BGMainConfig::s_nPort);
 }
 
 int BGTestServer::Size()
