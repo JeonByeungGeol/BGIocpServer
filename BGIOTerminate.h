@@ -11,7 +11,7 @@ public:
 	~BGIOTerminate() = default;
 
 			void	PostObject(BGIOCompletionHandler* pIOCPHandler, std::thread* pThread);
-	virtual void	OnIOCallback();
+	virtual void	OnIOCallback(BOOL bSuccess, DWORD dwTransferred, LPOVERLAPPED lpOverlapped);
 
 public:
 	std::thread*		m_pThread;

@@ -8,8 +8,7 @@ void BGIOTerminate::PostObject(BGIOCompletionHandler * pIOCPHandler, std::thread
 	pIOCPHandler->Post(0, this);
 }
 
-void BGIOTerminate::OnIOCallback()
+void BGIOTerminate::OnIOCallback(BOOL bSuccess, DWORD dwTransferred, LPOVERLAPPED lpOverlapped)
 {
 	SuspendThread(m_pThread->native_handle());
-	BG_LOG_INFO("thread join");
 }
