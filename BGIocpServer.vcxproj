@@ -165,6 +165,11 @@
     <ClInclude Include="BGLogManager.h" />
     <ClInclude Include="BGMainConfig.h" />
     <ClInclude Include="BGSingleton.h" />
+    <ClInclude Include="BGTestOtherSocket.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="BGTestServer.h" />
+    <ClInclude Include="BGTestSocket.h" />
     <ClInclude Include="BGTestTimerObject.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -188,6 +193,11 @@
     <ClCompile Include="BGLogManager.cpp" />
     <ClCompile Include="BGMainConfig.cpp" />
     <ClCompile Include="BGSingleton.cpp" />
+    <ClCompile Include="BGTestOtherSocket.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="BGTestServer.cpp" />
+    <ClCompile Include="BGTestSocket.cpp" />
     <ClCompile Include="BGTestTimerObject.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -97,7 +97,9 @@ void BGIOServer::OnWaitCallback()
 
 /**
  * IOCP객체에서 작업이 들어오면 해당함수가 호출됩니다.
- * accept를 진행하고, 후처리 작업(CreateSocket함수)을 진행합니다.
+ * accept를 진행하고, 
+ * 소켓의 Initialize를 호출 한 후,
+ * 후처리 작업(CreateSocket함수)을 진행합니다.
 */
 void BGIOServer::OnIOCallback()
 {

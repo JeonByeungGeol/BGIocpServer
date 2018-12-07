@@ -40,7 +40,7 @@
     <Filter Include="IOCommon\BasicObject">
       <UniqueIdentifier>{f01f24db-d77d-442d-b129-13a2a08e89f7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="BGTest">
+    <Filter Include="BGExample">
       <UniqueIdentifier>{14615b2b-39d3-4130-aa40-83c8d4474483}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -112,17 +112,23 @@
       <Filter>IOCommon\BasicObject</Filter>
     </ClInclude>
     <ClInclude Include="BGMainConfig.h">
-      <Filter>BGTest</Filter>
+      <Filter>BGExample</Filter>
     </ClInclude>
     <ClInclude Include="BGTestTimerObject.h">
-      <Filter>BGTest</Filter>
+      <Filter>BGExample</Filter>
+    </ClInclude>
+    <ClInclude Include="BGTestServer.h">
+      <Filter>BGExample</Filter>
+    </ClInclude>
+    <ClInclude Include="BGTestOtherSocket.h">
+      <Filter>BGExample</Filter>
+    </ClInclude>
+    <ClInclude Include="BGTestSocket.h">
+      <Filter>BGExample</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="BGIocpServer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="BGLog.cpp">
@@ -174,10 +180,22 @@
       <Filter>IOCommon\BasicObject</Filter>
     </ClCompile>
     <ClCompile Include="BGMainConfig.cpp">
-      <Filter>BGTest</Filter>
+      <Filter>BGExample</Filter>
     </ClCompile>
     <ClCompile Include="BGTestTimerObject.cpp">
-      <Filter>BGTest</Filter>
+      <Filter>BGExample</Filter>
+    </ClCompile>
+    <ClCompile Include="BGTestOtherSocket.cpp">
+      <Filter>BGExample</Filter>
+    </ClCompile>
+    <ClCompile Include="BGTestServer.cpp">
+      <Filter>BGExample</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIocpServer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BGTestSocket.cpp">
+      <Filter>BGExample</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
