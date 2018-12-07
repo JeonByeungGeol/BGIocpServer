@@ -11,6 +11,8 @@
 
 // test
 #include "BGTestTimerObject.h"
+#include "BGTestServer.h"
+#include "BGTestSocket.h"
 
 int main()
 {
@@ -32,9 +34,10 @@ int main()
 		return -1;
 	}
 	
-	BGLayer::Add(BGMainConfig::s_nNumberOfThreads);
+	BGTestSocket::s_nNetworkId = BGLayer::Add(BGMainConfig::s_nNumberOfThreads);
+	BGTestSocket::s_pIOCPHandler = BGLayer::GetIOCP(BGTestSocket::s_nNetworkId);
 
-
+	BGTestServer::Start(BGTestSocket::s_nNetworkId);
 	
 		
 	BGIOTimerThread::Init();
