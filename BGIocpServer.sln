@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BGIocpServer", "BGIocpServer.vcxproj", "{86DC8A06-B188-4759-85E9-D98C43EB9908}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BGStressTest", "..\BGStressTest\BGStressTest.vcxproj", "{CAF67137-E87F-470F-A075-CC6BB503C2D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{86DC8A06-B188-4759-85E9-D98C43EB9908}.Release|x64.Build.0 = Release|x64
 		{86DC8A06-B188-4759-85E9-D98C43EB9908}.Release|x86.ActiveCfg = Release|Win32
 		{86DC8A06-B188-4759-85E9-D98C43EB9908}.Release|x86.Build.0 = Release|Win32
+		{CAF67137-E87F-470F-A075-CC6BB503C2D6}.Debug|x64.ActiveCfg = Debug|x64
+		{CAF67137-E87F-470F-A075-CC6BB503C2D6}.Debug|x64.Build.0 = Debug|x64
+		{CAF67137-E87F-470F-A075-CC6BB503C2D6}.Debug|x86.ActiveCfg = Debug|Win32
+		{CAF67137-E87F-470F-A075-CC6BB503C2D6}.Debug|x86.Build.0 = Debug|Win32
+		{CAF67137-E87F-470F-A075-CC6BB503C2D6}.Release|x64.ActiveCfg = Release|x64
+		{CAF67137-E87F-470F-A075-CC6BB503C2D6}.Release|x64.Build.0 = Release|x64
+		{CAF67137-E87F-470F-A075-CC6BB503C2D6}.Release|x86.ActiveCfg = Release|Win32
+		{CAF67137-E87F-470F-A075-CC6BB503C2D6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
