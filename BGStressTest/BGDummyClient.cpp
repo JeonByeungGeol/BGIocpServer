@@ -94,6 +94,21 @@ bool BGDummyClient::SendPacket(char * packet, WORD size)
 	return true;
 }
 
+void BGDummyClient::ProcessPacket(unsigned char * packet)
+{
+
+	PacketType packet_type = static_cast<PacketType>(packet[1]);
+
+	switch (packet_type) {
+	case PacketType::SC_PingTest:
+		std::cout << "ping" << std::endl;
+		break;
+
+
+	}
+
+}
+
 
 
 

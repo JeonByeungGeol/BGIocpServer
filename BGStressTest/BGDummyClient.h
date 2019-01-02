@@ -57,7 +57,7 @@ public:
 
 	SOCKET	GetSocket() { return m_hSocket; }
 
-
+	void	ProcessPacket(unsigned char* packet);
 
 
 public:
