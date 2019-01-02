@@ -25,3 +25,6 @@
 
 #include <vector>
 #include <thread>
+
+
+#include "../BGProtocal.h"

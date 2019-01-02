@@ -34,7 +34,8 @@ void ConnectThread()
 					return;
 				}
 			}
-
 		}
+
+		std::cout << "all connect" << std::endl;
 	}
 }
