@@ -167,6 +167,7 @@
     <ClInclude Include="BGSingleton.h" />
     <ClInclude Include="BGTestOtherSocket.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="BGTestServer.h" />
     <ClInclude Include="BGTestSocket.h" />
@@ -195,6 +196,7 @@
     <ClCompile Include="BGSingleton.cpp" />
     <ClCompile Include="BGTestOtherSocket.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="BGTestServer.cpp" />
     <ClCompile Include="BGTestSocket.cpp" />
