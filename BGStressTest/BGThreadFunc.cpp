@@ -42,7 +42,7 @@ void WorkerThread()
 					memcpy(pClient->m_uncomplete_packet + pClient->m_uncomplete_size
 						, buf
 						, remained_packet_data_size);
-					pClient->ProcessPacket(pClient->m_uncomplete_packet);
+					pClient->ProcessPacket(reinterpret_cast<unsigned char*>(pClient->m_uncomplete_packet));
 
 					pClient->m_uncomplete_size = 0;
 					pClient->m_current_packet_size = 0;
