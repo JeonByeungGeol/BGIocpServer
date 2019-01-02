@@ -43,6 +43,9 @@
     <Filter Include="BGExample">
       <UniqueIdentifier>{14615b2b-39d3-4130-aa40-83c8d4474483}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Protocal">
+      <UniqueIdentifier>{32bb359a-82d8-4332-94e0-4654138ba34d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -125,6 +128,9 @@
     </ClInclude>
     <ClInclude Include="BGTestSocket.h">
       <Filter>BGExample</Filter>
+    </ClInclude>
+    <ClInclude Include="BGProtocal.h">
+      <Filter>Protocal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -164,6 +164,7 @@
     <ClInclude Include="BGLogEnum.h" />
     <ClInclude Include="BGLogManager.h" />
     <ClInclude Include="BGMainConfig.h" />
+    <ClInclude Include="BGProtocal.h" />
     <ClInclude Include="BGSingleton.h" />
     <ClInclude Include="BGTestOtherSocket.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
