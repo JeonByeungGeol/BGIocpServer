@@ -26,7 +26,7 @@ protected:
 	virtual	void			OnWaitCallback();
 
 	/** IOCP Handler를 통해 호출되는 함수*/
-	virtual	void			OnIOCallback();
+	virtual	void			OnIOCallback(BOOL bSuccess, DWORD dwTransferred, LPOVERLAPPED lpOverlapped);
 
 	/** 클라이언트 접속 후 처리*/
 	virtual	BGIOSocket*		CreateSocket(SOCKET s, sockaddr_in* addr) = 0;

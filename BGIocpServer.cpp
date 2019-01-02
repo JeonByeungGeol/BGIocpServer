@@ -37,24 +37,25 @@ int main()
 	BG_LOG_INFO("SERVER ON STARTED");
 	BGTestSocket::s_nNetworkId = BGLayer::Add(BGMainConfig::s_nNumberOfThreads);
 	BGTestSocket::s_pIOCPHandler = BGLayer::GetIOCP(BGTestSocket::s_nNetworkId);
+	BGTestServer::Start(BGTestSocket::s_nNetworkId);		
+	BGIOTimerThread::Init();		
 
-	BGTestServer::Start(BGTestSocket::s_nNetworkId);
-	
-		
-	BGIOTimerThread::Init();
-		
 	BG_LOG_INFO("SERVER ON COMPLETED");
 
-	//Sleep(1000);
 
+	/**
+	 * 테스트
+	*/
+	Sleep(1000);
 	BGTestTimerObject* testTimerObj = new BGTestTimerObject{};
 	BGIOTimerThread::AddTimer(testTimerObj, 1000, 0);
 	//BGIOTimerThread::AddTimer(testTimerObj, 5000, 1);
 	//BGIOTimerThread::AddTimer(testTimerObj, 10000, 2);
 
+	auto point = (BGTestSocket*)0;
 
-
-	for (int i=0; i<2; i++)
+	// 10초 이후 종료
+	for (; ;)
 	{
 		Sleep(1000);
 	}

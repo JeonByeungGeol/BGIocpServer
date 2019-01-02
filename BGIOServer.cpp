@@ -101,7 +101,7 @@ void BGIOServer::OnWaitCallback()
  * 소켓의 Initialize를 호출 한 후,
  * 후처리 작업(CreateSocket함수)을 진행합니다.
 */
-void BGIOServer::OnIOCallback()
+void BGIOServer::OnIOCallback(BOOL bSuccess, DWORD dwTransferred, LPOVERLAPPED lpOverlapped)
 {
 	struct sockaddr_in clientAddress;
 	int clientAddressLength = sizeof(clientAddress);
