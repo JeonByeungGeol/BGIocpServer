@@ -39,3 +39,18 @@ void ConnectThread()
 		std::cout << "all connect" << std::endl;
 	}
 }
+
+
+void PintTestThread()
+{
+	cs_packet_ping_test packet;
+	packet.size = sizeof(cs_packet_ping_test);
+
+	while (1)
+	{
+		for (int i = 0; i < TEST_CLIENT_NUM; i++) {
+			g_Client[i]->SendPacket(reinterpret_cast<char*>(&packet), sizeof(packet));
+		}
+		Sleep(1000);
+	}
+}
