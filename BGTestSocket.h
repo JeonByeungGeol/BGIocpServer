@@ -6,31 +6,38 @@ class BGTestPlayer;
 
 class BGTestSocket : public BGIOSocket
 {
+protected:
+			long						m_nId;
+
 public:
+	static	long						s_nId;
 	static	int							s_nNetworkId;
 	static	BGIOCompletionHandler*		s_pIOCPHandler;
 
-public:
-	BGTestSocket(SOCKET pSocket, sockaddr_in* addr) : BGIOSocket(pSocket) {};
-	~BGTestSocket();
-
-	/** */
-	virtual	void				OnClose() {};
-
-	/** ReadCallback 에서 호출*/
-	virtual	void				OnRead() {};
-
-
-	long						Id() { return m_nId; }
-
-	void						Lock() { m_lock.Enter(); }
-	void						Unlock() { m_lock.Leave(); }
-
-
-protected:
-	long m_nId;
+			long						m_nBit;
+			in_addr						m_nAddr;
+			int							m_nPort;
+			time_t						m_timeLogin;
+			BGTestPlayer*				m_pPlayer;
 
 public:
-	BGTestPlayer* m_pPlayer;
+	BGTestSocket(SOCKET pSocket, sockaddr_in* addr);
+	virtual ~BGTestSocket();
+
+			void						Lock() { m_lock.Enter(); }
+			void						Unlock() { m_lock.Leave(); }
+
+	virtual	void						OnCreate();
+	virtual	void						OnClose();
+			void						CloseSocket();
+	virtual	void						OnRead();
+			bool						Process();
+			void						Write();
+			void						Send();
+
+		
+			long						Id() { return m_nId; }
+			void						BitSet(int nBit) { InterlockedExchange(&m_nBit, m_nBit | nBit); }
+			void						BitReset(int nBit) { InterlockedExchange(&m_nBit, m_nBit & ~nBit); }
 };
 
