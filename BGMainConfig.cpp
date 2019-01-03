@@ -35,7 +35,7 @@ bool BGMainConfig::Open()
 
 	s_nNumberOfThreads		= g_Config.GetInt("workerThreadNum");
 
-	s_nMaxUser = g_Config.GetInt("maxUser");
+	s_nMaxUser				= g_Config.GetInt("maxUser");
 
 	s_nPort = BG_SERVER_PORT;
 

@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "BGTestSocket.h"
 
-
+#include "BGTestServer.h"
+#include "BGMainConfig.h"
 
 int							BGTestSocket::s_nNetworkId;
 BGIOCompletionHandler*		BGTestSocket::s_pIOCPHandler;
@@ -26,6 +27,15 @@ BGTestSocket::~BGTestSocket()
 void BGTestSocket::OnCreate()
 {
 	BG_LOG_INFO("new connect : %hs", inet_ntoa(m_nAddr));
+
+	BGTestServer::Add(this);
+	BGIOSocket::OnCreate();
+
+	if (BGMainConfig::s_nMaxUser < BGTestServer::Size()) {
+		// 접속 실패 패킷 전송
+		// 로그 아웃 처리
+		GracefulClose();
+	}
 }
 
 void BGTestSocket::OnClose()
