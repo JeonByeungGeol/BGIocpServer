@@ -58,7 +58,10 @@ void BGTestServer::Stop()
 
 	g_lock.ReadLock();
 	
-	// pSocket->CloseSocket();
+	for(auto iter = s_mapSocket.begin(); iter != s_mapSocket.end(); iter++) {
+		BGTestSocket* pSocket = iter->second;
+		pSocket->CloseSocket();
+	}
 
 	g_lock.ReadUnlock();
 

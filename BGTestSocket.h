@@ -32,11 +32,13 @@ public:
 
 			void						Lock() { m_lock.Enter(); }
 			void						Unlock() { m_lock.Leave(); }
-			
-			/***/
+
 	virtual	void						OnCreate();
 	virtual	void						OnClose();
+
+/** BGTestServer::Stop에서 맵에 등록된 모든 소켓에 대해 호출*/
 			void						CloseSocket();
+
 	virtual	void						OnRead();
 			bool						Process();
 			void						Write();

@@ -62,6 +62,12 @@ void BGTestSocket::OnClose()
 
 void BGTestSocket::CloseSocket()
 {
+	SOCKET hSocket = InterlockedExchange64((LONGLONG*)&m_hSocket, 0);
+	LINGER linger;
+	linger.l_onoff = 1;
+	linger.l_linger = 0;
+	setsockopt(hSocket, SOL_SOCKET, SO_LINGER, (char*)&linger, sizeof(linger));
+	closesocket(hSocket);
 }
 
 void BGTestSocket::OnRead()
