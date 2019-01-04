@@ -29,13 +29,20 @@ public:
 	BGIOSocket(SOCKET s);
 	virtual ~BGIOSocket();
 
-	/** 소켓 IOCPHandler에 등록후 OnCreate() 호출*/
+	/** 
+	 * AcceptThread에서 신오가 오면 IOServer::IOCallback가 호출 되고
+	 * IOCallback에서 호출된다.
+	 * 소켓 IOCPHandler에 등록후 OnCreate() 호출
+	 */
 			void				Initialize(BGIOCompletionHandler* pIOCPHandler);
 
-	/** 소켓 초기화후 작업 (Read(0) 호출)*/
+	/** 
+	 * Initialize 안에서 호출 된다.
+	 * 소켓 초기화후 작업 (Read(0) 호출)	 
+	 */
 	virtual	void				OnCreate();
 
-	/** */
+	/** io_size의 크기가 0일때 연결 종료로 판단하고 호출*/
 			void				Close();
 
 	/** */
@@ -45,7 +52,7 @@ public:
 			long				PendingWrite();
 
 protected:
-	/** */
+	/** io_size의 크기가 0일때, Close()를 호출하고 그곳에서 OnClose() 호출*/
 	virtual	void				OnClose() = 0;
 
 	/** IOCP Handler를 통해 호출되는 함수*/

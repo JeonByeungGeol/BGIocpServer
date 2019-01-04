@@ -4,6 +4,11 @@
 
 class BGTestPlayer;
 
+#define SOCKET_BIT_LOGIN_REQUEST	0x00000001
+#define SOCKET_BIT_LOGIN			0x00000002
+#define SOCKET_BIT_LOADING			0x00000004
+#define SOCKET_BIT_CLOSED			0x00000008
+
 class BGTestSocket : public BGIOSocket
 {
 protected:
@@ -19,6 +24,7 @@ public:
 			int							m_nPort;
 			time_t						m_timeLogin;
 			BGTestPlayer*				m_pPlayer;
+			bool						m_bClosed;
 
 public:
 	BGTestSocket(SOCKET pSocket, sockaddr_in* addr);
@@ -26,7 +32,8 @@ public:
 
 			void						Lock() { m_lock.Enter(); }
 			void						Unlock() { m_lock.Leave(); }
-
+			
+			/***/
 	virtual	void						OnCreate();
 	virtual	void						OnClose();
 			void						CloseSocket();

@@ -18,6 +18,7 @@ BGTestSocket::BGTestSocket(SOCKET socket, sockaddr_in* addr)
 	m_timeLogin				= time(0);
 
 	m_pPlayer				= nullptr;
+	m_bClosed				= false;
 }
 
 BGTestSocket::~BGTestSocket()
@@ -26,20 +27,37 @@ BGTestSocket::~BGTestSocket()
 
 void BGTestSocket::OnCreate()
 {
-	BG_LOG_INFO("new connect : %hs", inet_ntoa(m_nAddr));
+	BG_LOG_INFO("new connect : %s", inet_ntoa(m_nAddr));
 
 	BGTestServer::Add(this);
 	BGIOSocket::OnCreate();
 
 	if (BGMainConfig::s_nMaxUser < BGTestServer::Size()) {
 		// 접속 실패 패킷 전송
-		// 로그 아웃 처리
+		// 로그아웃 처리
 		GracefulClose();
 	}
 }
 
 void BGTestSocket::OnClose()
 {
+	BG_LOG_INFO("close connection : in_addr(%s), port(%d), socket(%p)", inet_ntoa(m_nAddr), m_nPort, this);
+
+	BGTestServer::Remove(this);
+
+	// 로그아웃 처리
+
+	Lock();
+	BGTestPlayer* pPlayer = m_pPlayer;
+	if (pPlayer)
+		m_pPlayer = nullptr;
+	Unlock();
+
+	if (pPlayer) {
+		//pPlayer->Realease;
+	}
+
+	m_bClosed = true;
 }
 
 void BGTestSocket::CloseSocket()
