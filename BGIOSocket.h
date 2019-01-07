@@ -58,7 +58,10 @@ protected:
 	/** IOCP Handler를 통해 호출되는 함수*/
 	virtual	void				OnIOCallback(BOOL bSuccess, DWORD dwTransferred, LPOVERLAPPED lpOverlapped);
 
-	/** WSARecv 호출 이후 OnIOCallback에서 호출되는 함수*/
+	/**
+	  * WSARecv 호출 이후 OnIOCallback에서 호출되는 함수
+	  * m_pReadBuf의 dwSize를 증가시키고, OnRead를 호출한다.
+	  */
 			void				ReadCallback(DWORD dwTransferred);
 
 	/** WSASend 호출 이후 OnIOCallback에서 호출되는 함수*/
@@ -83,8 +86,14 @@ protected:
 
 	/***/
 	BGIOBuffer*					m_pReadBuf;
+
+	/** 실제로 전송할 버퍼*/
 	BGIOBuffer*					m_pFirstBuf;
+
+	/** 다음에 전송할 버퍼*/
 	BGIOBuffer*					m_pLastBuf;
+
+	/** 현재 전송중인 데이터 크기*/
 	long						m_nPendingWrite;
 };
 

@@ -55,7 +55,12 @@ void BGIOSocket::OnCreate()
 
 void BGIOSocket::Close()
 {
-	SOCKET hSocket = InterlockedExchange64( (LONGLONG*)&m_hSocket, INVALID_SOCKET );
+	int sizeTmp = sizeof(m_hSocket);
+	int sizeTmp2 = sizeof(LONGLONG*);
+	int sizeTmp3 = sizeof(SOCKET);
+
+
+	SOCKET hSocket = InterlockedExchange((LONG*)&m_hSocket, INVALID_SOCKET);
 	if (hSocket != INVALID_SOCKET) {
 		OnClose();
 		LINGER linger;
@@ -69,7 +74,7 @@ void BGIOSocket::Close()
 
 void BGIOSocket::GracefulClose()
 {
-	SOCKET hSocket = InterlockedExchange64((LONGLONG*)&m_hSocket, INVALID_SOCKET);
+	SOCKET hSocket = InterlockedExchange((LONG*)&m_hSocket, INVALID_SOCKET);
 	if (hSocket != INVALID_SOCKET) {
 		OnClose();
 		shutdown(hSocket, SD_BOTH);
@@ -104,7 +109,7 @@ void BGIOSocket::Read(DWORD dwLeft)
 	wsabuf.buf = m_pReadBuf->m_buffer + m_pReadBuf->m_dwSize;
 	DWORD dwRecv;
 	DWORD dwFlag = 0;
-	if (WSARecv(m_hSocket, &wsabuf, 1, &dwRecv, &dwFlag, &m_overlappedRead, nullptr)
+	if (WSARecv(m_hSocket, &wsabuf, 1, &dwRecv, &dwFlag, &m_overlappedRead, NULL)
 		&& GetLastError() != ERROR_IO_PENDING)
 	{
 		int nErr = GetLastError();

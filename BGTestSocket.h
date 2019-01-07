@@ -3,6 +3,7 @@
 #include "BGIOSocket.h"
 
 class BGTestPlayer;
+struct packet_basic_protocal;
 
 #define SOCKET_BIT_LOGIN_REQUEST	0x00000001
 #define SOCKET_BIT_LOGIN			0x00000002
@@ -40,7 +41,7 @@ public:
 			void						CloseSocket();
 
 	virtual	void						OnRead();
-			bool						Process();
+			bool						Process(packet_basic_protocal* clientpacket);
 			void						Write();
 			void						Send();
 

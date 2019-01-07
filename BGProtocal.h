@@ -15,6 +15,11 @@ enum class PacketType : unsigned short
 
 
 #pragma pack (push, 1)
+struct packet_basic_protocal {
+	PacketSize size;
+	PacketType type;
+};
+
 struct sc_packet_ping_test {
 	PacketSize size;
 	PacketType type{ PacketType::SC_PingTest };
