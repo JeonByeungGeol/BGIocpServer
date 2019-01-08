@@ -9,7 +9,7 @@
 #pragma warning( disable : 4996 )
 
 #define PENDING_WRITE				65535
-#define PACKET_RESERVED_LENGTH		12
+#define PACKET_RESERVED_LENGTH		3
 
 int							BGTestSocket::s_nNetworkId;
 BGIOCompletionHandler*		BGTestSocket::s_pIOCPHandler;
@@ -127,7 +127,21 @@ void BGTestSocket::OnRead()
 
 bool BGTestSocket::Process(packet_basic_protocal* clientpacket)
 {
-	BG_LOG_DEBUG("packet process test!");
+	PacketType type = clientpacket->type;
+
+	switch (type)
+	{
+	case PacketType::CS_PingTest:
+		cs_packet_ping_test* packet = reinterpret_cast<cs_packet_ping_test*>(clientpacket);
+		
+		BG_LOG_DEBUG("pint packet success");
+		break;
+
+	default:
+		BG_LOG_ERROR("Invalid packet type : type=%d, Addr=%s, Port=%d", type, inet_ntoa(m_nAddr), m_nPort);
+		return false;
+	}
+	
 
 	return true;
 }

@@ -13,6 +13,7 @@
 #include "BGTestTimerObject.h"
 #include "BGTestServer.h"
 #include "BGTestSocket.h"
+#include "BGProtocal.h"
 
 int main()
 {
@@ -44,11 +45,11 @@ int main()
 
 
 	/**
-	 * 테스트
+	 * 테스트	
 	*/
 	Sleep(1000);
 	BGTestTimerObject* testTimerObj = new BGTestTimerObject{};
-	BGIOTimerThread::AddTimer(testTimerObj, 1000, 0);
+	//BGIOTimerThread::AddTimer(testTimerObj, 1000, 0);
 	//BGIOTimerThread::AddTimer(testTimerObj, 5000, 1);
 	//BGIOTimerThread::AddTimer(testTimerObj, 10000, 2);
 
