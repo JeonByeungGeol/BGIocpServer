@@ -9,6 +9,9 @@ enum class PacketType : unsigned short
 {
 	SC_PingTest,
 	CS_PingTest,
+
+	SC_Login,
+	CS_Login
 };
 
 
@@ -30,6 +33,20 @@ struct cs_packet_ping_test {
 	PacketType type{ PacketType::CS_PingTest };
 };
 
+struct sc_packet_login {
+	PacketSize size;
+	PacketType type{ PacketType::SC_Login };
+
+	__int64 id;
+};
+
+struct cs_packet_login {
+	PacketSize size;
+	PacketType type{ PacketType::CS_Login };
+
+	char strId[30];
+	char strPassward[30];
+};
 
 
 

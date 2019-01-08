@@ -5,10 +5,9 @@
 class BGTestPlayer;
 struct packet_basic_protocal;
 
-#define SOCKET_BIT_LOGIN_REQUEST	0x00000001
-#define SOCKET_BIT_LOGIN			0x00000002
-#define SOCKET_BIT_LOADING			0x00000004
-#define SOCKET_BIT_CLOSED			0x00000008
+#define SOCKET_BIT_LOGIN			0x00000001
+#define SOCKET_BIT_LOADING			0x00000002
+#define SOCKET_BIT_CLOSED			0x00000004
 
 class BGTestSocket : public BGIOSocket
 {
@@ -48,5 +47,10 @@ public:
 			long						Id() { return m_nId; }
 			void						BitSet(int nBit) { InterlockedExchange(&m_nBit, m_nBit | nBit); }
 			void						BitReset(int nBit) { InterlockedExchange(&m_nBit, m_nBit & ~nBit); }
+
+			void						LoginOn(__int64 n64UID, std::string nickName);
+			void						Logout(bool bKickIs);
+			
+			void						RequestDataLoad();
 };
 

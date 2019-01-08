@@ -1,5 +1,7 @@
 #pragma once
 
+class BGTestSocket;
+
 struct Position
 {
 	int x, y;
@@ -7,13 +9,18 @@ struct Position
 
 class BGTestPlayer
 {
+	friend	class					BGTestSocket;
+			BGTestSocket*			m_pSocket;
 public:
-	BGTestPlayer();
+	BGTestPlayer(BGTestSocket* pSocket, __int64 n64UID, std::string strNickName);
 	~BGTestPlayer();
 
-	int m_nTargetId;
-	Position m_Position;
-	std::set<long> m_setView;
-	std::mutex m_VLLock;
+	__int64							m_n64UID;
+
+	std::string						m_strNickName;
+	int								m_nTargetId;
+	Position						m_Position;
+	std::set<long>					m_setView;
+	std::mutex						m_VLLock;
 };
 

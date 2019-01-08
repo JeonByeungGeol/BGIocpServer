@@ -5,6 +5,8 @@
 #include "BGMainConfig.h"
 #include "BGProtocal.h"
 
+#include "BGTestPlayer.h"
+
 #pragma warning( push )
 #pragma warning( disable : 4996 )
 
@@ -142,7 +144,17 @@ bool BGTestSocket::Process(packet_basic_protocal* clientpacket)
 		pSendBuffer->m_dwSize = sc_packet->size;
 		Send(pSendBuffer);		
 
-		BG_LOG_DEBUG("ping packet success");
+		
+	}
+		break;
+
+	case PacketType::CS_Login:
+	{
+		cs_packet_login* packet = reinterpret_cast<cs_packet_login*>(clientpacket);
+				
+		std::string nickName{ packet->strId };
+		
+		LoginOn(0, nickName);		
 	}
 		break;
 
@@ -153,7 +165,7 @@ bool BGTestSocket::Process(packet_basic_protocal* clientpacket)
 		return false;
 	}
 	
-
+	BG_LOG_DEBUG("packet process success : type=%d", type);
 	return true;
 }
 
@@ -168,6 +180,46 @@ void BGTestSocket::Send(BGIOBuffer* pBuffer, bool bAlloc)
 	else {
 		BGIOSocket::Write(pBuffer);
 	}
+}
+
+void BGTestSocket::LoginOn(__int64 n64UID, std::string nickName)
+{
+	Lock();
+
+	if (m_nBit & SOCKET_BIT_CLOSED) {
+		Unlock();
+		return;
+	}
+
+	BGTestPlayer* pPlayerOld = m_pPlayer;
+	m_pPlayer = new BGTestPlayer{this, n64UID, nickName};
+	
+	BitSet(SOCKET_BIT_LOGIN);
+
+	BGIOBuffer* pSendBuffer = BGIOBuffer::Alloc();
+	sc_packet_login* sc_packet = reinterpret_cast<sc_packet_login*>(pSendBuffer->m_buffer);
+	sc_packet->size = sizeof(sc_packet_login);
+	sc_packet->type = PacketType::SC_Login;
+	sc_packet->id = m_nId;
+	pSendBuffer->m_dwSize = sc_packet->size;
+	Send(pSendBuffer);
+
+		
+
+	BitSet(SOCKET_BIT_LOADING);
+	RequestDataLoad();
+	BitReset(SOCKET_BIT_LOADING);
+	
+	Unlock();
+}
+
+void BGTestSocket::Logout(bool bKickIs)
+{
+}
+
+void BGTestSocket::RequestDataLoad()
+{
+
 }
 
 #pragma warning( pop )
