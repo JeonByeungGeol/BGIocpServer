@@ -132,13 +132,24 @@ bool BGTestSocket::Process(packet_basic_protocal* clientpacket)
 	switch (type)
 	{
 	case PacketType::CS_PingTest:
+	{
 		cs_packet_ping_test* packet = reinterpret_cast<cs_packet_ping_test*>(clientpacket);
 		
-		BG_LOG_DEBUG("pint packet success");
+		BGIOBuffer* pSendBuffer = BGIOBuffer::Alloc();
+		sc_packet_ping_test* sc_packet = reinterpret_cast<sc_packet_ping_test*>(pSendBuffer->m_buffer);
+		sc_packet->size = sizeof(sc_packet_ping_test);
+		sc_packet->type = PacketType::SC_PingTest;
+		pSendBuffer->m_dwSize = sc_packet->size;
+		Send(pSendBuffer);		
+
+		BG_LOG_DEBUG("ping packet success");
+	}
 		break;
 
 	default:
+	{
 		BG_LOG_ERROR("Invalid packet type : type=%d, Addr=%s, Port=%d", type, inet_ntoa(m_nAddr), m_nPort);
+	}
 		return false;
 	}
 	
@@ -146,12 +157,17 @@ bool BGTestSocket::Process(packet_basic_protocal* clientpacket)
 	return true;
 }
 
-void BGTestSocket::Write()
+void BGTestSocket::Send(BGIOBuffer* pBuffer, bool bAlloc)
 {
-}
-
-void BGTestSocket::Send()
-{
+	if (bAlloc) {
+		BGIOBuffer* pNewBuffer = BGIOBuffer::Alloc();
+		memcpy(pNewBuffer->m_buffer, pBuffer->m_buffer, pBuffer->m_dwSize);
+		pNewBuffer->m_dwSize = pBuffer->m_dwSize;
+		BGIOSocket::Write(pBuffer);
+	}
+	else {
+		BGIOSocket::Write(pBuffer);
+	}
 }
 
 #pragma warning( pop )

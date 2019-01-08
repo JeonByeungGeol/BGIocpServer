@@ -42,9 +42,8 @@ public:
 
 	virtual	void						OnRead();
 			bool						Process(packet_basic_protocal* clientpacket);
-			void						Write();
-			void						Send();
-
+			void						Send(BGIOBuffer* pBuffer, bool bAlloc = false);
+			
 		
 			long						Id() { return m_nId; }
 			void						BitSet(int nBit) { InterlockedExchange(&m_nBit, m_nBit | nBit); }
