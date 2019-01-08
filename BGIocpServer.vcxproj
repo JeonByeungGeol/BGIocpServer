@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="BGConfigManager.h" />
     <ClInclude Include="BGConst.h" />
+    <ClInclude Include="BGGameObject.h" />
     <ClInclude Include="BGIOAcceptThread.h" />
     <ClInclude Include="BGIOBuffer.h" />
     <ClInclude Include="BGIOCompletionHandler.h" />
@@ -179,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BGConfigManager.cpp" />
+    <ClCompile Include="BGGameObject.cpp" />
     <ClCompile Include="BGIOAcceptThread.cpp" />
     <ClCompile Include="BGIOBuffer.cpp" />
     <ClCompile Include="BGIOCompletionHandler.cpp" />

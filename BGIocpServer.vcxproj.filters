@@ -46,6 +46,9 @@
     <Filter Include="Protocal">
       <UniqueIdentifier>{32bb359a-82d8-4332-94e0-4654138ba34d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{683c0104-ffbf-4638-9568-59b290de0e9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -132,8 +135,11 @@
     <ClInclude Include="BGProtocal.h">
       <Filter>Protocal</Filter>
     </ClInclude>
+    <ClInclude Include="BGGameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
     <ClInclude Include="BGTestPlayer.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -206,8 +212,11 @@
     <ClCompile Include="BGTestSocket.cpp">
       <Filter>BGExample</Filter>
     </ClCompile>
+    <ClCompile Include="BGGameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
     <ClCompile Include="BGTestPlayer.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
