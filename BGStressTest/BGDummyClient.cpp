@@ -114,10 +114,27 @@ void BGDummyClient::ProcessPacket(unsigned char * packet)
 	case PacketType::SC_Login:
 	{
 		sc_packet_login* login_packet = reinterpret_cast<sc_packet_login*>(packet);
+		m_sId = login_packet->client_id;
+		m_objectId = login_packet->object_id;
+
 		BitSet(CLIENT_BIT_LOGIN);
-		std::cout << "login id : " <<  login_packet->id << std::endl;
+		std::cout << "login id : " <<  login_packet->client_id << std::endl;
 	}
 		break;
+
+	case PacketType::SC_Put_Object:
+	{
+		sc_packet_put_object* put_packet = reinterpret_cast<sc_packet_put_object*>(packet);
+		std::cout << "put object:" << put_packet->object_id << "(x: " << put_packet->x << ", y: " << put_packet->y << ")" << std::endl;
+	}
+	break;
+
+
+	case PacketType::SC_Remove_Object:
+	{
+
+	}
+	break;
 	}
 
 }

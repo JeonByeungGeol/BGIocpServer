@@ -1,6 +1,6 @@
 #pragma once
 
-enum class ObjectType
+enum class ObjectType : unsigned char
 {
 	TEST_BASIC_MONSTER,
 	TEST_PLAYER,

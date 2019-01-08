@@ -52,5 +52,6 @@ public:
 			void						Logout(bool bKickIs);
 			
 			void						RequestDataLoad();
+			void						LoadComplete();
 };
 

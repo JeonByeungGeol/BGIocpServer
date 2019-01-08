@@ -200,7 +200,8 @@ void BGTestSocket::LoginOn(__int64 n64UID, std::string nickName)
 	sc_packet_login* sc_packet = reinterpret_cast<sc_packet_login*>(pSendBuffer->m_buffer);
 	sc_packet->size = sizeof(sc_packet_login);
 	sc_packet->type = PacketType::SC_Login;
-	sc_packet->id = m_nId;
+	sc_packet->client_id = m_nId;
+	sc_packet->object_id = m_pPlayer->GetId();
 	pSendBuffer->m_dwSize = sc_packet->size;
 	Send(pSendBuffer);
 
@@ -210,6 +211,8 @@ void BGTestSocket::LoginOn(__int64 n64UID, std::string nickName)
 	RequestDataLoad();
 	BitReset(SOCKET_BIT_LOADING);
 	
+	LoadComplete();
+
 	Unlock();
 }
 
@@ -220,6 +223,20 @@ void BGTestSocket::Logout(bool bKickIs)
 void BGTestSocket::RequestDataLoad()
 {
 
+}
+
+void BGTestSocket::LoadComplete()
+{
+	BGIOBuffer* pSendBuffer = BGIOBuffer::Alloc();
+	sc_packet_put_object* sc_packet = reinterpret_cast<sc_packet_put_object*>(pSendBuffer->m_buffer);
+	sc_packet->size = sizeof(sc_packet_put_object);
+	sc_packet->type = PacketType::SC_Put_Object;
+	sc_packet->object_id = m_pPlayer->m_nId;
+	sc_packet->object_type = static_cast<unsigned char>(ObjectType::TEST_PLAYER);
+	sc_packet->x = m_pPlayer->GetPosition().x;
+	sc_packet->y = m_pPlayer->GetPosition().y;
+	pSendBuffer->m_dwSize = sc_packet->size;
+	Send(pSendBuffer);
 }
 
 #pragma warning( pop )

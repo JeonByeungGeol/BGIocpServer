@@ -11,7 +11,10 @@ enum class PacketType : unsigned short
 	CS_PingTest,
 
 	SC_Login,
-	CS_Login
+	CS_Login,
+
+	SC_Put_Object,
+	SC_Remove_Object
 };
 
 
@@ -37,7 +40,8 @@ struct sc_packet_login {
 	PacketSize size;
 	PacketType type{ PacketType::SC_Login };
 
-	__int64 id;
+	__int64 client_id;
+	__int64 object_id;
 };
 
 struct cs_packet_login {
@@ -48,6 +52,22 @@ struct cs_packet_login {
 	char strPassward[30];
 };
 
+
+struct sc_packet_put_object {
+	PacketSize size;
+	PacketType type{ PacketType::SC_Put_Object };
+
+	unsigned char object_type;
+	__int64 object_id;
+	int x, y;
+};
+
+struct sc_packet_remove_object {
+	PacketSize size;
+	PacketType type{ PacketType::SC_Remove_Object };
+
+	__int64 object_id;
+};
 
 
 

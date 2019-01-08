@@ -64,6 +64,11 @@ public:
 	int				m_nId;
 	long			m_nBit;
 
+	// 서버에서 받은 소켓 아이디
+	int				m_sId;
+	// 서버에서 받은 내 Player 객체 아이디
+	int				m_objectId;
+
 	SOCKET			m_hSocket;
 
 	OVERLAPPED_EX	m_overExRecv;
