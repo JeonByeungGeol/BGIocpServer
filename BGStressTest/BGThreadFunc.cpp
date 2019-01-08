@@ -47,7 +47,7 @@ void WorkerThread()
 					pClient->m_uncomplete_size = 0;
 					pClient->m_current_packet_size = 0;
 					buf += remained_packet_data_size;
-					remained_io_data_size += remained_packet_data_size;
+					remained_io_data_size -= remained_packet_data_size;
 				}
 				else {
 					memcpy(pClient->m_uncomplete_packet + pClient->m_uncomplete_size, buf, remained_io_data_size);
@@ -117,12 +117,11 @@ void PingTestThread()
 	cs_packet_ping_test packet;
 	packet.size = sizeof(cs_packet_ping_test);
 
-	while (1)
+	for( ; ;)
 	{
 		for (int i = 0; i < TEST_CLIENT_NUM; i++) {
 			g_Client[i]->SendPacket(reinterpret_cast<char*>(&packet), sizeof(packet));
 		}
-
 		Sleep(5000);
 	}
 }
