@@ -24,6 +24,8 @@ int main()
 
 	Sleep(1000);
 
+	std::thread pingTestThreads{ PingTestThread };
+
 	while (1)
 	{
 		Sleep(1000);

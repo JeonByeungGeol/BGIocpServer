@@ -112,7 +112,7 @@ void ConnectThread()
 }
 
 
-void PintTestThread()
+void PingTestThread()
 {
 	cs_packet_ping_test packet;
 	packet.size = sizeof(cs_packet_ping_test);
@@ -122,6 +122,7 @@ void PintTestThread()
 		for (int i = 0; i < TEST_CLIENT_NUM; i++) {
 			g_Client[i]->SendPacket(reinterpret_cast<char*>(&packet), sizeof(packet));
 		}
-		Sleep(1000);
+
+		Sleep(5000);
 	}
 }
