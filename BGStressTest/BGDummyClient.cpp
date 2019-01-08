@@ -58,6 +58,13 @@ bool BGDummyClient::Connect(int id)
 		return false;
 	}
 	BitSet(CLIENT_BIT_CONNECT);
+
+	cs_packet_login login_packet;
+	login_packet.size = sizeof(cs_packet_login);
+	login_packet.type = PacketType::CS_Login;	
+	strncpy(login_packet.strId, "test_id", 7);
+	strncpy(login_packet.strPassward, "test_passward", 13);
+	SendPacket(reinterpret_cast<char*>(&login_packet), sizeof(login_packet));
 	return true;
 }
 
@@ -104,7 +111,13 @@ void BGDummyClient::ProcessPacket(unsigned char * packet)
 		std::cout << "ping" << std::endl;
 		break;
 
-
+	case PacketType::SC_Login:
+	{
+		sc_packet_login* login_packet = reinterpret_cast<sc_packet_login*>(packet);
+		BitSet(CLIENT_BIT_LOGIN);
+		std::cout << "login id : " <<  login_packet->id << std::endl;
+	}
+		break;
 	}
 
 }
