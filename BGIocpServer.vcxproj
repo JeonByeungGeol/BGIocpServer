@@ -167,6 +167,7 @@
     <ClInclude Include="BGMainConfig.h" />
     <ClInclude Include="BGProtocal.h" />
     <ClInclude Include="BGSingleton.h" />
+    <ClInclude Include="BGTestBasicMonster.h" />
     <ClInclude Include="BGTestOtherSocket.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -198,6 +199,7 @@
     <ClCompile Include="BGLogManager.cpp" />
     <ClCompile Include="BGMainConfig.cpp" />
     <ClCompile Include="BGSingleton.cpp" />
+    <ClCompile Include="BGTestBasicMonster.cpp" />
     <ClCompile Include="BGTestOtherSocket.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>

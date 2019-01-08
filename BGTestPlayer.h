@@ -15,12 +15,13 @@ public:
 
 
 public:
-	ObjectType						GetObjectType() { return ObjectType::TEST_PLAYER; }
+	virtual	ObjectType						GetObjectType() { return ObjectType::TEST_PLAYER; }
 
-	__int64							m_n64UID;
-	std::string						m_strNickName;
-	int								m_nTargetId;
-	std::set<long>					m_setView;
-	std::mutex						m_VLLock;
+			__int64							m_n64UID;
+			std::string						m_strNickName;
+			int								m_nTargetId;
+
+			std::set<long>					m_setView;
+			std::mutex						m_VLLock;
 };
 
