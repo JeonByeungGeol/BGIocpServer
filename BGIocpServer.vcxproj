@@ -170,6 +170,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="BGTestPlayer.h" />
     <ClInclude Include="BGTestServer.h" />
     <ClInclude Include="BGTestSocket.h" />
     <ClInclude Include="BGTestTimerObject.h" />
@@ -199,6 +200,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="BGTestPlayer.cpp" />
     <ClCompile Include="BGTestServer.cpp" />
     <ClCompile Include="BGTestSocket.cpp" />
     <ClCompile Include="BGTestTimerObject.cpp" />
