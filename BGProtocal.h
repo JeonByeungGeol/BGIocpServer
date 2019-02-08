@@ -41,7 +41,7 @@ struct sc_packet_login {
 	PacketType type{ PacketType::SC_Login };
 
 	__int64 client_id;
-	__int64 object_id;
+	long object_id;
 };
 
 struct cs_packet_login {
@@ -58,7 +58,7 @@ struct sc_packet_put_object {
 	PacketType type{ PacketType::SC_Put_Object };
 
 	unsigned char object_type;
-	__int64 object_id;
+	long object_id;
 	int x, y;
 };
 
@@ -66,7 +66,7 @@ struct sc_packet_remove_object {
 	PacketSize size;
 	PacketType type{ PacketType::SC_Remove_Object };
 
-	__int64 object_id;
+	long object_id;
 };
 
 

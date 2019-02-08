@@ -5,6 +5,7 @@
 #include "BGMainConfig.h"
 #include "BGProtocal.h"
 
+#include "BGGameObject.h"
 #include "BGTestPlayer.h"
 
 #pragma warning( push )
@@ -26,7 +27,7 @@ BGTestSocket::BGTestSocket(SOCKET socket, sockaddr_in* addr)
 	m_nPort					= addr->sin_port;
 	m_timeLogin				= time(0);
 
-	m_pPlayer				= nullptr;
+	m_pGameObject			= nullptr;
 	m_bClosed				= false;
 }
 
@@ -57,9 +58,9 @@ void BGTestSocket::OnClose()
 	// 로그아웃 처리
 
 	Lock();
-	BGTestPlayer* pPlayer = m_pPlayer;
+	BGTestPlayer* pPlayer = static_cast<BGTestPlayer*>(m_pGameObject);
 	if (pPlayer)
-		m_pPlayer = nullptr;
+		m_pGameObject = nullptr;
 	Unlock();
 
 	if (pPlayer) {
@@ -191,8 +192,8 @@ void BGTestSocket::LoginOn(__int64 n64UID, std::string nickName)
 		return;
 	}
 
-	BGTestPlayer* pPlayerOld = m_pPlayer;
-	m_pPlayer = new BGTestPlayer{this, n64UID, nickName};
+	BGGameObject* pPlayerOld = m_pGameObject;
+	m_pGameObject = new BGTestPlayer{m_nId, nickName, this};
 	
 	BitSet(SOCKET_BIT_LOGIN);
 
@@ -201,7 +202,7 @@ void BGTestSocket::LoginOn(__int64 n64UID, std::string nickName)
 	sc_packet->size = sizeof(sc_packet_login);
 	sc_packet->type = PacketType::SC_Login;
 	sc_packet->client_id = m_nId;
-	sc_packet->object_id = m_pPlayer->GetId();
+	sc_packet->object_id = m_pGameObject->GetId();
 	pSendBuffer->m_dwSize = sc_packet->size;
 	Send(pSendBuffer);
 
@@ -231,12 +232,22 @@ void BGTestSocket::LoadComplete()
 	sc_packet_put_object* sc_packet = reinterpret_cast<sc_packet_put_object*>(pSendBuffer->m_buffer);
 	sc_packet->size = sizeof(sc_packet_put_object);
 	sc_packet->type = PacketType::SC_Put_Object;
-	sc_packet->object_id = m_pPlayer->m_nId;
-	sc_packet->object_type = static_cast<unsigned char>(ObjectType::TEST_PLAYER);
-	sc_packet->x = m_pPlayer->GetPosition().x;
-	sc_packet->y = m_pPlayer->GetPosition().y;
+	sc_packet->object_id = m_pGameObject->m_nId;
+	sc_packet->object_type = static_cast<unsigned char>(ObjectType::PLAYER);
+	sc_packet->x = m_pGameObject->GetPosition().x;
+	sc_packet->y = m_pGameObject->GetPosition().y;
 	pSendBuffer->m_dwSize = sc_packet->size;
 	Send(pSendBuffer);
+}
+
+void BGTestSocket::SetViewList()
+{
+	m_pGameObject->m_VLLock.lock();
+	m_pGameObject->m_setView.clear();
+	m_pGameObject->m_VLLock.unlock();
+
+	//BGTestServer::FindPlayer()
+
 }
 
 #pragma warning( pop )

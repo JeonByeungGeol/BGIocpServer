@@ -90,24 +90,16 @@ BGTestSocket* BGTestServer::FindSocket(long nId)
 	return pSocket;
 }
 
-BGTestPlayer* BGTestServer::FindPlayer(long nId)
+BGGameObject* BGTestServer::FindPlayer(long nId)
 {
-	BGTestPlayer* pPlayer{ nullptr };
+	BGTestSocket* pSocket = FindSocket(nId);
 
-	g_lock.ReadLock();
+	if (pSocket == nullptr)
+		return nullptr;
 
-	SocketMap::iterator it = s_mapSocket.find(nId);
-	if (it != s_mapSocket.end())
-	{
-		BGTestSocket* pSocket = it->second;
-		pSocket->Lock();
-		pPlayer = pSocket->m_pPlayer;
-		if (pPlayer)
-		{
-			//pPlayer->AddRef(&pPlayer->m_nFindRef);
-		}
-		pSocket->Unlock();		
-	}
-	g_lock.ReadUnlock();
-	return pPlayer;
+
+	auto pGameObject = pSocket->m_pGameObject;
+	// pGameObject->AddRef(&pGameObject->m_nFindRef);
+
+	return pGameObject;
 }

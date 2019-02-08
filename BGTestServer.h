@@ -3,7 +3,7 @@
 #include "BGIOServer.h"
 
 class BGTestSocket;
-class BGTestPlayer;
+class BGGameObject;
 
 class BGTestServer : public BGIOServer
 {
@@ -44,7 +44,7 @@ public:
 	static	BGTestSocket*		FindSocket(long nId);
 
 	/** 소켓을 찾은 이후에, Player를 검색 */
-	static	BGTestPlayer*		FindPlayer(long nId);
+	static	BGGameObject*		FindPlayer(long nId);
 
 };
 
