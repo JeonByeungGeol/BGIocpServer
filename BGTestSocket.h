@@ -1,10 +1,12 @@
 #pragma once
 
 #include "BGIOSocket.h"
+#include "BGGameObject.h"
 
 class BGGameObject;
 struct packet_basic_protocal;
 
+#define SOCKET_BIT_NOT_USED			0x00000000
 #define SOCKET_BIT_LOGIN			0x00000001
 #define SOCKET_BIT_LOADING			0x00000002
 #define SOCKET_BIT_CLOSED			0x00000004

@@ -22,7 +22,7 @@ BGTestSocket::BGTestSocket(SOCKET socket, sockaddr_in* addr)
 	:BGIOSocket(socket)
 {
 	m_nId					= InterlockedIncrement( &s_nId);
-	m_nBit					= 0;
+	m_nBit					= SOCKET_BIT_NOT_USED;
 	m_nAddr					= addr->sin_addr;
 	m_nPort					= addr->sin_port;
 	m_timeLogin				= time(0);
