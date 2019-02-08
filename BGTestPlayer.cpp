@@ -3,17 +3,11 @@
 
 #include "BGTestSocket.h"
 
-BGTestPlayer::BGTestPlayer(BGTestSocket * pSocket, __int64 n64UID, std::string strNickName)
+BGTestPlayer::BGTestPlayer(long nId, std::string strNickName, BGTestSocket* pSocket)
+	: BGGameObject(nId, ObjectType::PLAYER, strNickName)
 {
 	m_pSocket				= pSocket;
 	m_pSocket->AddRef();
-
-	m_n64UID				= n64UID;
-	m_strNickName			= strNickName;
-
-	m_nTargetId				= 0;
-	m_setView.clear();
-
 
 }
 
