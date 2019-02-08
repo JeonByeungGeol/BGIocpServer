@@ -8,6 +8,7 @@ class BGGameObject;
 class BGTestServer : public BGIOServer
 {
 public:
+	using SocketArr = BGTestSocket[BG_MAX_CLIENT_NUM];
 	using SocketMap = std::map<int, BGTestSocket*>;
 
 	static	long		s_nServerBit;
