@@ -106,9 +106,9 @@ void ConnectThread()
 				}
 			}
 		}
-
-		std::cout << "all connect" << std::endl;
 	}
+
+	std::cout << "all connect" << std::endl;
 }
 
 
