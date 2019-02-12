@@ -55,11 +55,6 @@ void BGIOSocket::OnCreate()
 
 void BGIOSocket::Close()
 {
-	int sizeTmp = sizeof(m_hSocket);
-	int sizeTmp2 = sizeof(LONGLONG*);
-	int sizeTmp3 = sizeof(SOCKET);
-
-
 	SOCKET hSocket = InterlockedExchange((LONG*)&m_hSocket, INVALID_SOCKET);
 	if (hSocket != INVALID_SOCKET) {
 		OnClose();

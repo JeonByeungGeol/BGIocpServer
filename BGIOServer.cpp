@@ -107,11 +107,12 @@ void BGIOServer::OnIOCallback(BOOL bSuccess, DWORD dwTransferred, LPOVERLAPPED l
 	int clientAddressLength = sizeof(clientAddress);
 	SOCKET newSocket = accept(m_hSocket, (struct sockaddr*)&clientAddress, &clientAddressLength);
 	if (newSocket == INVALID_SOCKET) {
-
+		BG_LOG_ERROR("accept return INVALID_SOCKET");
 	}
 
 	BGIOSocket *pSocket = CreateSocket(newSocket, &clientAddress);
 	if (pSocket == nullptr) {
+		BG_LOG_ERROR("CreateSocket return nullptr");
 		closesocket(newSocket);
 		return;
 	}
