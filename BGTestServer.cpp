@@ -8,8 +8,8 @@
 
 #include "BGTestSocket.h"
 
-long							BGTestServer::s_nServerBit;
-BGTestServer::SocketMap			BGTestServer::s_mapSocket;
+long							BGTestServer::s_nBit;
+BGTestServer::SocketArr			BGTestServer::s_arrSocket;
 
 static BGTestServer				g_server;
 static BGRWLock					g_lock;
@@ -23,48 +23,61 @@ void BGTestServer::Start(int nLayerId)
 	}
 
 	BG_LOG_DEBUG("%s Server Start(%u)", BGMainConfig::s_strTitle.c_str(), BGMainConfig::s_nPort);
+
+	Initialize();
+	BG_LOG_DEBUG("Initialize Success");
+}
+
+void BGTestServer::Initialize()
+{
+
 }
 
 BGIOSocket* BGTestServer::CreateSocket(SOCKET newSocket, sockaddr_in* addr)
 {
-	BGTestSocket* pSocket = new BGTestSocket(newSocket, addr);
-	return pSocket;
-}
+	int newId{ -1 };
 
+	for (; ;){
+		newId = -1;
 
-void BGTestServer::Add(BGTestSocket* pSocket)
-{
-	g_lock.WriteLock();
+		for (int i = 0; i < BG_MAX_CLIENT_NUM; i++) {
+			if (!BGTestServer::s_arrSocket[i].BitIs(SOCKET_BIT_DISCONNECTED))
+				continue;
+			newId = i;
+			break;
+		}
 
-	s_mapSocket.insert(SocketMap::value_type(pSocket->Id(), pSocket));
-	g_nCount++;
-
-	g_lock.WriteUnlock();
-}
-
-void BGTestServer::Remove(BGTestSocket* pSocket)
-{
-	g_lock.WriteLock();
-
-	g_nCount--;
-	s_mapSocket.erase(pSocket->Id());
-
-	g_lock.WriteUnlock();
+		if (newId == -1) {
+			BG_LOG_ERROR("Max User Connect");
+			return nullptr;
+		}
+		
+		// 소켓 잠금 이후에 다시 한번 확인
+		BGTestSocket* pNewSocket = &BGTestServer::s_arrSocket[newId];
+		pNewSocket->Lock();		
+		if (pNewSocket->BitIs(SOCKET_BIT_DISCONNECTED)) {
+			pNewSocket->BitReset(SOCKET_BIT_DISCONNECTED);
+			pNewSocket->BitSet(SOCKET_BIT_CONNECTED);
+			pNewSocket->m_nId = newId;
+			pNewSocket->m_hSocket = newSocket;
+			pNewSocket->m_nAddr = addr->sin_addr;
+			pNewSocket->m_nPort = addr->sin_port;
+			pNewSocket->AddRef();
+			pNewSocket->Unlock();
+			return pNewSocket;
+		}
+		pNewSocket->Unlock();		
+	}	
 }
 
 void BGTestServer::Stop()
 {
 	g_server.BGIOServer::Stop();
 
-	g_lock.ReadLock();
-	
-	for(auto iter = s_mapSocket.begin(); iter != s_mapSocket.end(); iter++) {
-		BGTestSocket* pSocket = iter->second;
-		pSocket->CloseSocket();
+	for (BGTestSocket& sock : s_arrSocket) {
+		if(!sock.BitIs(SOCKET_BIT_CLOSED))
+			sock.CloseSocket();
 	}
-
-	g_lock.ReadUnlock();
-
 	BG_LOG_DEBUG("%s Server Stop(%u)", BGMainConfig::s_strTitle.c_str(), BGMainConfig::s_nPort);
 }
 
@@ -76,17 +89,8 @@ int BGTestServer::Size()
 BGTestSocket* BGTestServer::FindSocket(long nId)
 {
 	BGTestSocket* pSocket{ nullptr };
-
-	g_lock.ReadLock();
-	
-	SocketMap::iterator it = s_mapSocket.find(nId);
-	if (it != s_mapSocket.end())
-	{
-		pSocket = it->second;
-		pSocket->AddRef();
-	}
-
-	g_lock.ReadUnlock();
+	pSocket = &s_arrSocket[nId];
+		
 	return pSocket;
 }
 
