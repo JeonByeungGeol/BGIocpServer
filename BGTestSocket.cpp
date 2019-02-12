@@ -18,17 +18,28 @@ int							BGTestSocket::s_nNetworkId;
 BGIOCompletionHandler*		BGTestSocket::s_pIOCPHandler;
 long						BGTestSocket::s_nId;
 
-BGTestSocket::BGTestSocket(SOCKET socket, sockaddr_in* addr)
+BGTestSocket::BGTestSocket(long nId, SOCKET socket, sockaddr_in* addr)
 	:BGIOSocket(socket)
 {
-	m_nId					= InterlockedIncrement( &s_nId);
-	m_nBit					= SOCKET_BIT_NOT_USED;
-	m_nAddr					= addr->sin_addr;
-	m_nPort					= addr->sin_port;
+	m_nId					= nId;
+	m_nBit					= SOCKET_BIT_DISCONNECTED;
+	if (addr != nullptr) {
+		m_nAddr = addr->sin_addr;
+		m_nPort = addr->sin_port;
+	}	
 	m_timeLogin				= time(0);
 
 	m_pGameObject			= nullptr;
 	m_bClosed				= false;
+}
+BGTestSocket::BGTestSocket()
+	:BGIOSocket(INVALID_SOCKET)
+{
+	m_nId = 0;
+	m_nBit = SOCKET_BIT_DISCONNECTED;	
+	m_timeLogin = 0;
+	m_pGameObject = nullptr;
+	m_bClosed = false;
 }
 
 BGTestSocket::~BGTestSocket()
@@ -37,27 +48,22 @@ BGTestSocket::~BGTestSocket()
 
 void BGTestSocket::OnCreate()
 {
-	BG_LOG_INFO("new connect : %s", inet_ntoa(m_nAddr));
+	BG_LOG_INFO("new connect : in_addr(%s)", inet_ntoa(m_nAddr));
 
-	BGTestServer::Add(this);
 	BGIOSocket::OnCreate();
-
-	if (BGMainConfig::s_nMaxUser < BGTestServer::Size()) {
-		// 접속 실패 패킷 전송
-		// 로그아웃 처리
-		GracefulClose();
-	}
 }
 
 void BGTestSocket::OnClose()
 {
 	BG_LOG_INFO("close connection : in_addr(%s), port(%d), socket(%p)", inet_ntoa(m_nAddr), m_nPort, this);
 	
-	BGTestServer::Remove(this);
-
 	// 로그아웃 처리
 
 	Lock();
+	BitSet(0);
+	BitSet(SOCKET_BIT_DISCONNECTED);
+	m_nId = 0;
+	
 	BGTestPlayer* pPlayer = static_cast<BGTestPlayer*>(m_pGameObject);
 	if (pPlayer)
 		m_pGameObject = nullptr;
