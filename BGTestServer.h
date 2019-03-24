@@ -13,6 +13,8 @@ public:
 	static	long		s_nBit;
 	static SocketArr	s_arrSocket;
 
+	// createSocket에서 재시도할 횟수
+	static const int	s_createSocketRetryCnt{ 3 };
 
 public:
 	static	void				BitSet(int nBit) { InterlockedExchange(&s_nBit, s_nBit | nBit); }

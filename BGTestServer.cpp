@@ -37,7 +37,7 @@ BGIOSocket* BGTestServer::CreateSocket(SOCKET newSocket, sockaddr_in* addr)
 {
 	int newId{ -1 };
 
-	for (; ;){
+	for (int i = 0; i < s_createSocketRetryCnt; i++) {
 		newId = -1;
 
 		for (int i = 0; i < BG_MAX_CLIENT_NUM; i++) {
@@ -68,6 +68,14 @@ BGIOSocket* BGTestServer::CreateSocket(SOCKET newSocket, sockaddr_in* addr)
 		}
 		pNewSocket->Unlock();		
 	}	
+
+	/*
+		'소켓 배정하려는 사이에 변경이 일어남' 이 경우가
+		최대 횟수만큼 도달한 경우 무한루프 빠져나옴
+		보통의 경우에는 해당 로그가 찍히면 안됨
+	*/	
+	BG_LOG_ERROR("Limit Retry Count.");
+	return nullptr;
 }
 
 void BGTestServer::Stop()
