@@ -31,6 +31,13 @@ void BGTestServer::Start(int nLayerId)
 void BGTestServer::Initialize()
 {
 
+
+
+
+
+	int maxNum{ BG_MAX_OBJECT_NUM };
+	int maxSize{ sizeof(s_arrSocket) };
+	BG_LOG_INFO("Max Object Num : %d, Max Object Size %d Mb.", maxNum, maxSize / (1000 * 1000));
 }
 
 BGIOSocket* BGTestServer::CreateSocket(SOCKET newSocket, sockaddr_in* addr)
@@ -41,7 +48,7 @@ BGIOSocket* BGTestServer::CreateSocket(SOCKET newSocket, sockaddr_in* addr)
 		newId = -1;
 
 		for (int i = 0; i < BG_MAX_CLIENT_NUM; i++) {
-			if (!BGTestServer::s_arrSocket[i].BitIs(SOCKET_BIT_DISCONNECTED))
+			if (!BGTestServer::s_arrSocket[i].BitIs(SOCKET_BIT_NOT_USED))
 				continue;
 			newId = i;
 			break;
@@ -55,8 +62,17 @@ BGIOSocket* BGTestServer::CreateSocket(SOCKET newSocket, sockaddr_in* addr)
 		// 소켓 잠금 이후에 다시 한번 확인
 		BGTestSocket* pNewSocket = &BGTestServer::s_arrSocket[newId];
 		pNewSocket->Lock();		
-		if (pNewSocket->BitIs(SOCKET_BIT_DISCONNECTED)) {
-			pNewSocket->BitReset(SOCKET_BIT_DISCONNECTED);
+		if (pNewSocket->BitIs(SOCKET_BIT_NOT_USED)) {
+
+			if (!pNewSocket->CheckResetData()) {
+				// 에러로그를 남기고 강제로 초기화 시켜준다.
+				pNewSocket->ResetDataOnForce();
+				pNewSocket->Unlock();
+				BG_LOG_ERROR("CheckResetData is Fail index=%d", newId);
+				continue;
+			}
+
+			pNewSocket->BitReset(SOCKET_BIT_NOT_USED);
 			pNewSocket->BitSet(SOCKET_BIT_CONNECTED);
 			pNewSocket->m_nId = newId;
 			pNewSocket->m_hSocket = newSocket;
@@ -83,7 +99,7 @@ void BGTestServer::Stop()
 	g_server.BGIOServer::Stop();
 
 	for (BGTestSocket& sock : s_arrSocket) {
-		if(!sock.BitIs(SOCKET_BIT_CLOSED))
+		if(sock.BitIs(SOCKET_BIT_CONNECTED))
 			sock.CloseSocket();
 	}
 	BG_LOG_DEBUG("%s Server Stop(%u)", BGMainConfig::s_strTitle.c_str(), BGMainConfig::s_nPort);

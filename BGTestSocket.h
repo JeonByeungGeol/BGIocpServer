@@ -6,11 +6,10 @@
 class BGGameObject;
 struct packet_basic_protocal;
 
-#define SOCKET_BIT_DISCONNECTED		0x00000001
+#define SOCKET_BIT_NOT_USED			0x00000001
 #define SOCKET_BIT_CONNECTED		0x00000002
 #define SOCKET_BIT_LOGIN			0x00000004
 #define SOCKET_BIT_LOADING			0x00000008
-#define SOCKET_BIT_CLOSED			0x00000010
 
 class BGTestSocket : public BGIOSocket
 {
@@ -28,7 +27,6 @@ public:
 			int							m_nPort;
 			time_t						m_timeLogin;
 			BGGameObject*				m_pGameObject;
-			bool						m_bClosed;
 
 public:
 	BGTestSocket(long nId, SOCKET pSocket, sockaddr_in* addr);
@@ -41,7 +39,14 @@ public:
 	virtual	void						OnCreate();
 	virtual	void						OnClose();
 
-/** BGTestServer::Stop에서 맵에 등록된 모든 소켓에 대해 호출*/
+
+			/** 멤버들의 데이터가 초기값 상태인지 확인한다. 실패했을 경우 에러로그를 남긴다.*/
+			bool						CheckResetData();
+
+			/** 멤버들의 데이터를 강제로 초기화 한다.*/
+			void						ResetDataOnForce();
+
+			/** BGTestServer::Stop에서 맵에 등록된 모든 소켓에 대해 호출*/
 			void						CloseSocket();
 
 	virtual	void						OnRead();

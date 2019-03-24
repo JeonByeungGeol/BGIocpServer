@@ -8,7 +8,7 @@ class BGGameObject;
 class BGTestServer : public BGIOServer
 {
 public:
-	using SocketArr = BGTestSocket[BG_MAX_CLIENT_NUM];
+	using SocketArr = BGTestSocket[BG_MAX_OBJECT_NUM];
 
 	static	long		s_nBit;
 	static SocketArr	s_arrSocket;

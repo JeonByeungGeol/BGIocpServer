@@ -22,7 +22,7 @@ BGTestSocket::BGTestSocket(long nId, SOCKET socket, sockaddr_in* addr)
 	:BGIOSocket(socket)
 {
 	m_nId					= nId;
-	m_nBit					= SOCKET_BIT_DISCONNECTED;
+	m_nBit					= SOCKET_BIT_NOT_USED;
 	if (addr != nullptr) {
 		m_nAddr = addr->sin_addr;
 		m_nPort = addr->sin_port;
@@ -30,16 +30,14 @@ BGTestSocket::BGTestSocket(long nId, SOCKET socket, sockaddr_in* addr)
 	m_timeLogin				= time(0);
 
 	m_pGameObject			= nullptr;
-	m_bClosed				= false;
 }
 BGTestSocket::BGTestSocket()
 	:BGIOSocket(INVALID_SOCKET)
 {
 	m_nId = 0;
-	m_nBit = SOCKET_BIT_DISCONNECTED;	
+	m_nBit = SOCKET_BIT_NOT_USED;
 	m_timeLogin = 0;
 	m_pGameObject = nullptr;
-	m_bClosed = false;
 }
 
 BGTestSocket::~BGTestSocket()
@@ -48,33 +46,56 @@ BGTestSocket::~BGTestSocket()
 
 void BGTestSocket::OnCreate()
 {
-	BG_LOG_INFO("new connect : in_addr(%s)", inet_ntoa(m_nAddr));
+	BG_LOG_INFO("new connect : in_addr(%s), index(%d)", inet_ntoa(m_nAddr), m_nId);
 
 	BGIOSocket::OnCreate();
 }
 
 void BGTestSocket::OnClose()
 {
-	BG_LOG_INFO("close connection : in_addr(%s), port(%d), socket(%p)", inet_ntoa(m_nAddr), m_nPort, this);
+	BG_LOG_INFO("close connection : in_addr(%s), port(%d), index(%d)", inet_ntoa(m_nAddr), m_nPort, m_nId);
 	
 	// 로그아웃 처리
 
 	Lock();
-	BitSet(0);
-	BitSet(SOCKET_BIT_DISCONNECTED);
+	BitReset(SOCKET_BIT_CONNECTED);
 	m_nId = 0;
-	
+	m_timeLogin = 0;
+
 	BGTestPlayer* pPlayer = static_cast<BGTestPlayer*>(m_pGameObject);
 	if (pPlayer)
 		m_pGameObject = nullptr;
+
+	BitSet(0);
+	BitSet(SOCKET_BIT_NOT_USED);
 	Unlock();
 
 	if (pPlayer) {
 		//pPlayer->Realease;
 	}
-
-	m_bClosed = true;
 }
+
+bool BGTestSocket::CheckResetData()
+{
+	if ((m_nId != 0) || !BitIs(SOCKET_BIT_NOT_USED) || m_pGameObject != nullptr) {
+
+		BG_LOG_ERROR("Not Reset Data. m_nId=%d, m_nBit=%0x, m_pObject=%d", m_nId, m_nBit, m_pGameObject);
+		return false;
+	}
+	
+	return true;
+}
+
+void BGTestSocket::ResetDataOnForce()
+{
+	BG_LOG_INFO("Reset Data. m_nId=%d", m_nId);
+
+	m_nBit = SOCKET_BIT_NOT_USED;
+	m_nId = 0;
+	m_timeLogin = 0;
+	m_pGameObject = nullptr;
+}
+
 
 void BGTestSocket::CloseSocket()
 {
@@ -193,7 +214,7 @@ void BGTestSocket::LoginOn(__int64 n64UID, std::string nickName)
 {
 	Lock();
 
-	if (m_nBit & SOCKET_BIT_CLOSED) {
+	if (!BitIs(SOCKET_BIT_CONNECTED)) {
 		Unlock();
 		return;
 	}
