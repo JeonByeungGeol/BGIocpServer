@@ -2,8 +2,8 @@
 #include "BGGameObject.h"
 
 
-BGGameObject::BGGameObject(long nId, ObjectType objectType, std::string strNickName)
-	: m_nId(nId), m_eObjectType(objectType), m_strNickName(strNickName)
+BGGameObject::BGGameObject(int nGameWorIdIndex, ObjectType objectType)
+	: m_nGameWorIdIndex(nGameWorIdIndex), m_eObjectType(objectType), m_strNickName("NONAME")
 	, m_nTargetId(0)
 {
 	m_setView.clear();

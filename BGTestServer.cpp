@@ -41,7 +41,7 @@ void BGTestServer::Initialize()
 		object.Initialize(index++);
 	}
 	BG_LOG_INFO("GameWorld Initialize Complete Num : %d, Max GameWorld Size %d Mb."
-		, sizeof(s_arrGameWorld) / sizeof(BGGameWorld), sizeof(s_arrGameWorld));
+		, sizeof(s_arrGameWorld) / sizeof(BGGameWorld), sizeof(s_arrGameWorld) / (1000 * 1000));
 }
 
 BGIOSocket* BGTestServer::CreateSocket(SOCKET newSocket, sockaddr_in* addr)
@@ -130,8 +130,18 @@ BGTestPlayer* BGTestServer::FindPlayer(long nId)
 		return nullptr;
 
 
-	auto pGameObject = pSocket->m_pGameObject;
+	auto pGameObject = pSocket->m_pPlayer;
 	// pGameObject->AddRef(&pGameObject->m_nFindRef);
 
 	return pGameObject;
+}
+
+BGGameWorld* BGTestServer::FindGameWorld(int nId)
+{
+	if (BG_MAX_GAME_WORLD_NUM <= nId) {
+		BG_LOG_ERROR("arr bind err index=%d", nId);
+		return nullptr;
+	}
+
+	return &s_arrGameWorld[nId];
 }

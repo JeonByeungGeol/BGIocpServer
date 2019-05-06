@@ -26,7 +26,7 @@ public:
 			int							m_nPort;
 			time_t						m_timeLogin;
 			int							m_nWorldId;
-			BGTestPlayer*				m_pGameObject;
+			BGTestPlayer*				m_pPlayer;
 
 public:
 	BGTestSocket(long nId, SOCKET pSocket, sockaddr_in* addr);

@@ -41,6 +41,7 @@ struct sc_packet_login {
 	PacketType type{ PacketType::SC_Login };
 
 	__int64 client_id;
+	int world_id;
 	long object_id;
 };
 

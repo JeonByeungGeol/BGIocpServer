@@ -26,22 +26,45 @@ bool BGGameWorld::Initialize(int id)
 		name.append(":");
 		name.append(std::to_string(i));
 
-		BGTestBasicMonster *pMonster = new BGTestBasicMonster(i, name);		
+		BGTestBasicMonster *pMonster = new BGTestBasicMonster(m_nId);
+		pMonster->SetName(name);
 		m_arrObject[i] = pMonster;
 	}
 
 	// 蜡历 按眉 固府 积己
 	for (int i = m_nNPCNum; i < BG_MAX_OBJECT_NUM; i++) {
-		std::string name{ "player:" };
-		name.append(std::to_string(m_nId));
-		name.append(":");
-		name.append(std::to_string(i));
-
-		BGTestPlayer *pMonster = new BGTestPlayer(i, name);
-		m_arrObject[i] = pMonster;
+		BGTestPlayer *pPlayer = new BGTestPlayer(m_nId);
+		m_arrObject[i] = pPlayer;
 	}
 
 	BG_LOG_INFO("GameWorld Inialize success : %d", m_nId);
 	return true;
+}
+
+BGTestPlayer * BGGameWorld::AddPlayer(BGTestSocket* pSocket)
+{
+	// 蜡历 按眉 固府 积己
+	for (int i = m_nNPCNum; i < BG_MAX_OBJECT_NUM; i++) {
+		BGTestPlayer *pPlayer = static_cast<BGTestPlayer*>(m_arrObject[i]);
+		pPlayer->Lock();
+		if (pPlayer->isConnected()) {
+			pPlayer->Unlock();
+			continue;
+		}
+		else {
+			if (pPlayer->Connect()) {
+				pPlayer->Unlock();
+				return pPlayer;
+			}
+			else {
+				pPlayer->Unlock();
+				continue;
+			}
+			
+		}
+	}
+
+	BG_LOG_ERROR("Not exist extra player worldID=%d", m_nId);
+	return nullptr;
 }
 

@@ -53,5 +53,8 @@ public:
 
 	/** 소켓을 찾은 이후에, Player를 검색 */
 	static	BGTestPlayer*		FindPlayer(long nId);
+
+	/** 게임 월드 검색 */
+	static BGGameWorld*			FindGameWorld(int nId);
 };
 

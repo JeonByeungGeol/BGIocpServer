@@ -5,6 +5,7 @@
 #include "BGMainConfig.h"
 #include "BGProtocal.h"
 
+#include "BGGameWorld.h"
 #include "BGGameObject.h"
 #include "BGTestPlayer.h"
 
@@ -29,7 +30,7 @@ BGTestSocket::BGTestSocket(long nId, SOCKET socket, sockaddr_in* addr)
 	}	
 	m_timeLogin				= time(0);
 
-	m_pGameObject			= nullptr;
+	m_pPlayer			= nullptr;
 }
 BGTestSocket::BGTestSocket()
 	:BGIOSocket(INVALID_SOCKET)
@@ -38,7 +39,7 @@ BGTestSocket::BGTestSocket()
 	m_nBit = SOCKET_BIT_NOT_USED;
 	m_timeLogin = 0;
 	m_nWorldId = 1;
-	m_pGameObject = nullptr;
+	m_pPlayer = nullptr;
 }
 
 BGTestSocket::~BGTestSocket()
@@ -56,31 +57,35 @@ void BGTestSocket::OnClose()
 {
 	BG_LOG_INFO("close connection : in_addr(%s), port(%d), index(%d)", inet_ntoa(m_nAddr), m_nPort, m_nId);
 	
-	// 로그아웃 처리
+	BGTestPlayer* pPlayer = m_pPlayer;
 
+	// 우선 플레이어 객체 접속 해제 처리
+	if (pPlayer) {
+		pPlayer->Lock();
+		pPlayer->Disconnect();
+		
+		// m_pPlayer 널로 만드는 위치를 잘 모르겠다..
+		// player 락을 잡을지. socket 락을 잡을지
+		m_pPlayer = nullptr;
+		pPlayer->Unlock();
+	}
+	
+	// 로그아웃 처리
 	Lock();
 	BitReset(SOCKET_BIT_CONNECTED);
 	m_nId = 0;
 	m_timeLogin = 0;
 
-	BGTestPlayer* pPlayer = static_cast<BGTestPlayer*>(m_pGameObject);
-	if (pPlayer)
-		m_pGameObject = nullptr;
-
 	BitSet(0);
 	BitSet(SOCKET_BIT_NOT_USED);
 	Unlock();
-
-	if (pPlayer) {
-		//pPlayer->Realease;
-	}
 }
 
 bool BGTestSocket::CheckResetData()
 {
-	if ((m_nId != 0) || !BitIs(SOCKET_BIT_NOT_USED) || m_pGameObject != nullptr) {
+	if ((m_nId != 0) || !BitIs(SOCKET_BIT_NOT_USED) || m_pPlayer != nullptr) {
 
-		BG_LOG_ERROR("Not Reset Data. m_nId=%d, m_nBit=%0x, m_pObject=%d", m_nId, m_nBit, m_pGameObject);
+		BG_LOG_ERROR("Not Reset Data. m_nId=%d, m_nBit=%0x, m_pObject=%d", m_nId, m_nBit, m_pPlayer);
 		return false;
 	}
 	
@@ -94,7 +99,7 @@ void BGTestSocket::ResetDataOnForce()
 	m_nBit = SOCKET_BIT_NOT_USED;
 	m_nId = 0;
 	m_timeLogin = 0;
-	m_pGameObject = nullptr;
+	m_pPlayer = nullptr;
 }
 
 
@@ -220,27 +225,40 @@ void BGTestSocket::LoginOn(__int64 n64UID, std::string nickName)
 		return;
 	}
 
-	BGGameObject* pPlayerOld = m_pGameObject;
-	m_pGameObject = new BGTestPlayer{m_nId, nickName, this};
 	
-	BitSet(SOCKET_BIT_LOGIN);
-
-	BGIOBuffer* pSendBuffer = BGIOBuffer::Alloc();
-	sc_packet_login* sc_packet = reinterpret_cast<sc_packet_login*>(pSendBuffer->m_buffer);
-	sc_packet->size = sizeof(sc_packet_login);
-	sc_packet->type = PacketType::SC_Login;
-	sc_packet->client_id = m_nId;
-	sc_packet->object_id = m_pGameObject->GetId();
-	pSendBuffer->m_dwSize = sc_packet->size;
-	Send(pSendBuffer);
-
-		
-
+	
 	BitSet(SOCKET_BIT_LOADING);
 	RequestDataLoad();
 	BitReset(SOCKET_BIT_LOADING);
+
 	
+
+	BGTestPlayer* pPlayerOld = m_pPlayer;
+
+	// Socket Set
+	m_pPlayer->SetSocket(this);
+
+	// Object Id Set
+	BGGameWorld *pWorld = BGTestServer::FindGameWorld(m_nWorldId);
+	if (nullptr == pWorld) {
+		BG_LOG_ERROR("FindGameWorld is nullptr socketID=%d", m_nId);
+		return;
+	}
+	m_pPlayer = pWorld->AddPlayer(this);
+	if (nullptr == m_pPlayer) {
+		BG_LOG_ERROR("AddPlayer is nullptr socketID=%d", m_nId);
+		return;
+	}
+	
+
+		
+
+	
+	
+
 	LoadComplete();
+
+	BitSet(SOCKET_BIT_LOGIN);
 
 	Unlock();
 }
@@ -257,22 +275,34 @@ void BGTestSocket::RequestDataLoad()
 void BGTestSocket::LoadComplete()
 {
 	BGIOBuffer* pSendBuffer = BGIOBuffer::Alloc();
-	sc_packet_put_object* sc_packet = reinterpret_cast<sc_packet_put_object*>(pSendBuffer->m_buffer);
-	sc_packet->size = sizeof(sc_packet_put_object);
-	sc_packet->type = PacketType::SC_Put_Object;
-	sc_packet->object_id = m_pGameObject->m_nId;
-	sc_packet->object_type = static_cast<unsigned char>(ObjectType::PLAYER);
-	sc_packet->x = m_pGameObject->GetPosition().x;
-	sc_packet->y = m_pGameObject->GetPosition().y;
-	pSendBuffer->m_dwSize = sc_packet->size;
+	sc_packet_login* sc_login_packet = reinterpret_cast<sc_packet_login*>(pSendBuffer->m_buffer);
+	sc_login_packet->size = sizeof(sc_packet_login);
+	sc_login_packet->type = PacketType::SC_Login;
+	sc_login_packet->client_id = m_nId;
+	sc_login_packet->world_id = m_pPlayer->GetWorldId();
+	sc_login_packet->object_id = m_pPlayer->GetId();
+	pSendBuffer->m_dwSize = sc_login_packet->size;
+	Send(pSendBuffer);
+
+
+
+	pSendBuffer = BGIOBuffer::Alloc();
+	sc_packet_put_object* sc_packet_put = reinterpret_cast<sc_packet_put_object*>(pSendBuffer->m_buffer);
+	sc_packet_put->size = sizeof(sc_packet_put_object);
+	sc_packet_put->type = PacketType::SC_Put_Object;
+	sc_packet_put->object_id = m_pPlayer->m_nObjectId;
+	sc_packet_put->object_type = static_cast<unsigned char>(ObjectType::PLAYER);
+	sc_packet_put->x = m_pPlayer->GetPosition().x;
+	sc_packet_put->y = m_pPlayer->GetPosition().y;
+	pSendBuffer->m_dwSize = sc_packet_put->size;
 	Send(pSendBuffer);
 }
 
 void BGTestSocket::SetViewList()
 {
-	m_pGameObject->m_VLLock.lock();
-	m_pGameObject->m_setView.clear();
-	m_pGameObject->m_VLLock.unlock();
+	m_pPlayer->m_VLLock.lock();
+	m_pPlayer->m_setView.clear();
+	m_pPlayer->m_VLLock.unlock();
 
 	//BGTestServer::FindPlayer()
 

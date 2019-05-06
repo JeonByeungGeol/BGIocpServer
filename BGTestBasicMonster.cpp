@@ -2,8 +2,8 @@
 #include "BGTestBasicMonster.h"
 
 
-BGTestBasicMonster::BGTestBasicMonster(long nId, std::string strNickName)
-	: BGGameObject(nId, ObjectType::TEST_BASIC_MONSTER, strNickName)
+BGTestBasicMonster::BGTestBasicMonster(int nGameWorIdIndex)
+	: BGGameObject(nGameWorIdIndex, ObjectType::TEST_BASIC_MONSTER)
 {
 
 }

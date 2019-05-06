@@ -5,7 +5,7 @@
 class BGTestBasicMonster : public BGGameObject
 {
 public:
-	BGTestBasicMonster(long nId, std::string strNickName);
+	BGTestBasicMonster(int nGameWorIdIndex);
 	~BGTestBasicMonster();
 
 public:
