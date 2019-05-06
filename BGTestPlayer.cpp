@@ -11,6 +11,12 @@ BGTestPlayer::BGTestPlayer(long nId, std::string strNickName, BGTestSocket* pSoc
 
 }
 
+BGTestPlayer::BGTestPlayer(long nId, std::string strNickName)
+	: BGGameObject(nId, ObjectType::PLAYER, strNickName)
+{
+
+}
+
 BGTestPlayer::~BGTestPlayer()
 {
 	if (m_pSocket)

@@ -9,6 +9,7 @@ class BGTestPlayer : public BGGameObject
 {			
 public:
 	BGTestPlayer(long nId, std::string strNickName, BGTestSocket* pSocket);
+	BGTestPlayer(long nId, std::string strNickName);
 	~BGTestPlayer();
 
 

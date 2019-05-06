@@ -3,15 +3,18 @@
 #include "BGIOServer.h"
 
 class BGTestSocket;
-class BGGameObject;
+class BGGameWorld;
+class BGTestPlayer;
 
 class BGTestServer : public BGIOServer
 {
 public:
-	using SocketArr = BGTestSocket[BG_MAX_OBJECT_NUM];
+	using SocketArr = BGTestSocket[BG_MAX_CLIENT_NUM];
+	using GameWorldArr = BGGameWorld[BG_MAX_GAME_WORLD_NUM];
 
-	static	long		s_nBit;
-	static SocketArr	s_arrSocket;
+	static	long			s_nBit;
+	static SocketArr		s_arrSocket;
+	static GameWorldArr		s_arrGameWorld;
 
 	// createSocket에서 재시도할 횟수
 	static const int	s_createSocketRetryCnt{ 3 };
@@ -28,8 +31,8 @@ public:
 	static	void				Start(int nLayerId);
 
 	/** 
-	  Start호출 이후에, 필요한 초기화 작업을 진행합니다.
-	  소켓 배열 초기화, NPC 셋팅
+	  * Start호출 이후에, 필요한 초기화 작업을 진행합니다.
+	  * 게임 월드 초기화	  
 	*/
 	static void					Initialize();
 
@@ -49,7 +52,6 @@ public:
 	static	BGTestSocket*		FindSocket(long nId);
 
 	/** 소켓을 찾은 이후에, Player를 검색 */
-	static	BGGameObject*		FindPlayer(long nId);
-
+	static	BGTestPlayer*		FindPlayer(long nId);
 };
 

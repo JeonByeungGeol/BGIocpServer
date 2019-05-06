@@ -37,6 +37,7 @@ BGTestSocket::BGTestSocket()
 	m_nId = 0;
 	m_nBit = SOCKET_BIT_NOT_USED;
 	m_timeLogin = 0;
+	m_nWorldId = 1;
 	m_pGameObject = nullptr;
 }
 

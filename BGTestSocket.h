@@ -1,9 +1,8 @@
 #pragma once
 
 #include "BGIOSocket.h"
-#include "BGGameObject.h"
+#include "BGTestPlayer.h"
 
-class BGGameObject;
 struct packet_basic_protocal;
 
 #define SOCKET_BIT_NOT_USED			0x00000001
@@ -26,7 +25,8 @@ public:
 			in_addr						m_nAddr;
 			int							m_nPort;
 			time_t						m_timeLogin;
-			BGGameObject*				m_pGameObject;
+			int							m_nWorldId;
+			BGTestPlayer*				m_pGameObject;
 
 public:
 	BGTestSocket(long nId, SOCKET pSocket, sockaddr_in* addr);

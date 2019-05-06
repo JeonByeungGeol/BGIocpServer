@@ -7,9 +7,11 @@
 #include "BGIOServer.h"
 
 #include "BGTestSocket.h"
+#include "BGGameWorld.h"
 
 long							BGTestServer::s_nBit;
 BGTestServer::SocketArr			BGTestServer::s_arrSocket;
+BGTestServer::GameWorldArr		BGTestServer::s_arrGameWorld;
 
 static BGTestServer				g_server;
 static BGRWLock					g_lock;
@@ -30,14 +32,16 @@ void BGTestServer::Start(int nLayerId)
 
 void BGTestServer::Initialize()
 {
-
-
-
-
-
-	int maxNum{ BG_MAX_OBJECT_NUM };
+	int maxNum{ BG_MAX_CLIENT_NUM };
 	int maxSize{ sizeof(s_arrSocket) };
-	BG_LOG_INFO("Max Object Num : %d, Max Object Size %d Mb.", maxNum, maxSize / (1000 * 1000));
+	BG_LOG_INFO("Max Client Num : %d, Max Client Size %d Mb.", maxNum, maxSize / (1000 * 1000));
+
+	int index{ 0 };
+	for (BGGameWorld object : s_arrGameWorld) {
+		object.Initialize(index++);
+	}
+	BG_LOG_INFO("GameWorld Initialize Complete Num : %d, Max GameWorld Size %d Mb."
+		, sizeof(s_arrGameWorld) / sizeof(BGGameWorld), sizeof(s_arrGameWorld));
 }
 
 BGIOSocket* BGTestServer::CreateSocket(SOCKET newSocket, sockaddr_in* addr)
@@ -118,7 +122,7 @@ BGTestSocket* BGTestServer::FindSocket(long nId)
 	return pSocket;
 }
 
-BGGameObject* BGTestServer::FindPlayer(long nId)
+BGTestPlayer* BGTestServer::FindPlayer(long nId)
 {
 	BGTestSocket* pSocket = FindSocket(nId);
 

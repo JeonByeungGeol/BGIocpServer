@@ -8,11 +8,10 @@ void WorkerThread()
 	DWORD iosize;	// 이번에 받은 패킷 사이즈
 	unsigned char* buf = NULL;	// 현재 조립중인 버퍼
 	DWORD flag = 0;
-	ULONG comp_key;
+	unsigned long long comp_key;
 	OVERLAPPED_EX* over_ptr = NULL;
 	int remained_io_data_size = 0;
 	int result;
-
 	while (1) {
 		result = GetQueuedCompletionStatus(BGDummyClient::s_hIocp, &iosize, &comp_key, (LPOVERLAPPED*)&over_ptr, INFINITE);
 		
