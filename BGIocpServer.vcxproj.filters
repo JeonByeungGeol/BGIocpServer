@@ -49,6 +49,15 @@
     <Filter Include="GameObject">
       <UniqueIdentifier>{683c0104-ffbf-4638-9568-59b290de0e9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IOCommon\Thread\AcceptThread">
+      <UniqueIdentifier>{79c4b039-4f8f-4e30-b0a0-819239b8de63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOCommon\Thread\TimerThread">
+      <UniqueIdentifier>{c76fca3f-3182-469e-8165-ec0e42591b72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOCommon\Thread\WorkerThread">
+      <UniqueIdentifier>{a70469e9-9be9-47be-af48-a2453c63ec22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -84,18 +93,6 @@
     <ClInclude Include="BGIOBuffer.h">
       <Filter>IOCommon\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="BGIOAcceptThread.h">
-      <Filter>IOCommon\Thread</Filter>
-    </ClInclude>
-    <ClInclude Include="BGIOTimerThread.h">
-      <Filter>IOCommon\Thread</Filter>
-    </ClInclude>
-    <ClInclude Include="BGIOWorkerThread.h">
-      <Filter>IOCommon\Thread</Filter>
-    </ClInclude>
-    <ClInclude Include="BGIOThread.h">
-      <Filter>IOCommon\BasicObject</Filter>
-    </ClInclude>
     <ClInclude Include="BGIOObject.h">
       <Filter>IOCommon\BasicObject</Filter>
     </ClInclude>
@@ -103,9 +100,6 @@
       <Filter>IOCommon\BasicObject</Filter>
     </ClInclude>
     <ClInclude Include="BGIOSocket.h">
-      <Filter>IOCommon\BasicObject</Filter>
-    </ClInclude>
-    <ClInclude Include="BGIOTimer.h">
       <Filter>IOCommon\BasicObject</Filter>
     </ClInclude>
     <ClInclude Include="BGIOCompletionHandler.h">
@@ -147,6 +141,21 @@
     <ClInclude Include="BGGameWorld.h">
       <Filter>GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="BGIOAcceptThread.h">
+      <Filter>IOCommon\Thread\AcceptThread</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOWorkerThread.h">
+      <Filter>IOCommon\Thread\WorkerThread</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOTimer.h">
+      <Filter>IOCommon\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOThread.h">
+      <Filter>IOCommon\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="BGIOTimerThread.h">
+      <Filter>IOCommon\Thread\TimerThread</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -169,18 +178,6 @@
     </ClCompile>
     <ClCompile Include="BGIOBuffer.cpp">
       <Filter>IOCommon\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="BGIOAcceptThread.cpp">
-      <Filter>IOCommon\Thread</Filter>
-    </ClCompile>
-    <ClCompile Include="BGIOTimerThread.cpp">
-      <Filter>IOCommon\Thread</Filter>
-    </ClCompile>
-    <ClCompile Include="BGIOWorkerThread.cpp">
-      <Filter>IOCommon\Thread</Filter>
-    </ClCompile>
-    <ClCompile Include="BGIOThread.cpp">
-      <Filter>IOCommon\BasicObject</Filter>
     </ClCompile>
     <ClCompile Include="BGIOObject.cpp">
       <Filter>IOCommon\BasicObject</Filter>
@@ -229,6 +226,18 @@
     </ClCompile>
     <ClCompile Include="BGGameWorld.cpp">
       <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOAcceptThread.cpp">
+      <Filter>IOCommon\Thread\AcceptThread</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOThread.cpp">
+      <Filter>IOCommon\Thread\TimerThread</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOWorkerThread.cpp">
+      <Filter>IOCommon\Thread\WorkerThread</Filter>
+    </ClCompile>
+    <ClCompile Include="BGIOTimerThread.cpp">
+      <Filter>IOCommon\Thread\TimerThread</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
