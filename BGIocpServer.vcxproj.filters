@@ -156,6 +156,9 @@
     <ClInclude Include="BGIOTimerThread.h">
       <Filter>IOCommon\Thread\TimerThread</Filter>
     </ClInclude>
+    <ClInclude Include="BGIOOverlapEx.h">
+      <Filter>IOCommon\BasicObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
