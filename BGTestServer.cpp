@@ -6,6 +6,8 @@
 #include "BGLayer.h"
 #include "BGIOServer.h"
 
+#include "BGIOCompletionHandler.h"
+
 #include "BGTestSocket.h"
 #include "BGGameWorld.h"
 
@@ -30,6 +32,8 @@ void BGTestServer::Start(int nLayerId)
 	BG_LOG_DEBUG("Initialize Success");
 }
 
+// https://docs.microsoft.com/ko-kr/visualstudio/code-quality/c6262?view=vs-2019
+// 오류 보류
 void BGTestServer::Initialize()
 {
 	int maxNum{ BG_MAX_CLIENT_NUM };
@@ -152,5 +156,9 @@ BGGameWorld* BGTestServer::FindGameWorld(int nId)
 
 void BGTestServer::Post(int nId, BGIOObject * pObject)
 {
-	BGLayer::GetIOCP(BGTestSocket::s_nNetworkId)->Post(nId, pObject);
+	BGIOCompletionHandler* pIocpHandler = BGLayer::GetIOCP(BGTestSocket::s_nNetworkId);
+	if (pIocpHandler == nullptr)
+		BG_LOG_ERROR("IOCPHandler is null. networkId:%d", BGTestSocket::s_nNetworkId);
+
+	pIocpHandler->Post(nId, pObject);
 }

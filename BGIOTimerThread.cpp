@@ -82,6 +82,8 @@ void BGIOTimerThread::Run()
 			int id = top.m_nId;
 			for (; ;) {
 				s_timerQueue.pop();
+				
+				// WorkerThread에서 작업 처리
 				BGTestServer::Post(id, pObject);
 
 				const BGIOTimer &nextTop = s_timerQueue.top();
