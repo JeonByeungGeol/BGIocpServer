@@ -34,6 +34,10 @@ void BGTestServer::Initialize()
 {
 	int maxNum{ BG_MAX_CLIENT_NUM };
 	int maxSize{ sizeof(s_arrSocket) };
+	for (BGTestSocket sock: s_arrSocket) {
+		sock.AddRef();
+	}
+
 	BG_LOG_INFO("Max Client Num : %d, Max Client Size %d Mb.", maxNum, maxSize / (1000 * 1000));
 
 	int index{ 0 };

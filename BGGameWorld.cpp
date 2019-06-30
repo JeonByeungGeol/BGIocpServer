@@ -21,13 +21,12 @@ bool BGGameWorld::Initialize(int id)
 
 	// 기본 NPC 생성 (추후에 데이터 읽어서 셋팅)
 	for (int i = 0; i < m_nNPCNum; i++) {
-		std::string name{ "test:" };
-		name.append(std::to_string(m_nId));
-		name.append(":");
-		name.append(std::to_string(i));
+		// worldId + objectId
+		std::strstream nickStream;
+		nickStream << "w:" << m_nId << ":" << i;
 
 		BGTestBasicMonster *pMonster = new BGTestBasicMonster(m_nId);
-		pMonster->SetName(name);
+		pMonster->SetName(nickStream.str());
 		m_arrObject[i] = pMonster;
 	}
 

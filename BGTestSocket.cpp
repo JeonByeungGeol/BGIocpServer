@@ -231,12 +231,12 @@ void BGTestSocket::LoginOn(__int64 n64UID, std::string nickName)
 	RequestDataLoad();
 	BitReset(SOCKET_BIT_LOADING);
 
+	// DB에서 모든 필요한 모든 정보를 얻어왔다는 가정하에 작업
+	// m_nWorldId 얻어음
+
 	
 
 	BGTestPlayer* pPlayerOld = m_pPlayer;
-
-	// Socket Set
-	m_pPlayer->SetSocket(this);
 
 	// Object Id Set
 	BGGameWorld *pWorld = BGTestServer::FindGameWorld(m_nWorldId);
@@ -250,7 +250,8 @@ void BGTestSocket::LoginOn(__int64 n64UID, std::string nickName)
 		return;
 	}
 	
-
+	// Socket Set
+	m_pPlayer->SetSocket(this);
 		
 
 	

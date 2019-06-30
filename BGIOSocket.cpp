@@ -173,7 +173,8 @@ void BGIOSocket::OnIOCallback(BOOL bSuccess, DWORD dwTransferred, LPOVERLAPPED l
 	{
 		if (lpOverlapped == &m_overlappedRead)
 			Close();
-		Release();
+		else
+			BG_LOG_ERROR("this");
 	}
 	else if (lpOverlapped == &m_overlappedWrite) {
 		WriteCallback(dwTransferred);

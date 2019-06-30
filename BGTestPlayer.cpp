@@ -6,7 +6,7 @@
 BGTestPlayer::BGTestPlayer(int nGameWorIdIndex, BGTestSocket* pSocket)
 	: BGGameObject(nGameWorIdIndex, ObjectType::PLAYER)
 {
-	m_bConnected = true;
+	m_bConnected			= false;
 	m_pSocket				= pSocket;
 	m_pSocket->AddRef();
 
