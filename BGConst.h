@@ -6,15 +6,15 @@
 */
 
 /** 게임 월드 수 */
-#define BG_MAX_GAME_WORLD_NUM	4
+#define BG_MAX_GAME_WORLD_NUM	1
 
 /** 최대 동접 수 */
 #define BG_MAX_CLIENT_NUM		10000
 
-/** NPC 수 */
+/** BGGameWorld 당  NPC 수 */
 #define BG_NPC_NUM				100000
 
-/** 동접 + NPC 최대 수*/
+/** BGGameWorld 당 동접 + NPC 최대 수*/
 #define BG_MAX_OBJECT_NUM		BG_MAX_CLIENT_NUM + BG_NPC_NUM
 
 /** 설정 파일 이름 */

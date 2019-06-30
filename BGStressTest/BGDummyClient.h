@@ -2,7 +2,7 @@
 
 // test °ª
 #define WORKER_THREAD_NUM 1
-#define TEST_CLIENT_NUM 4
+#define TEST_CLIENT_NUM 1
 
 
 

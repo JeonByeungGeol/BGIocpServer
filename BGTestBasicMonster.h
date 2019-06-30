@@ -9,6 +9,6 @@ public:
 	~BGTestBasicMonster();
 
 public:
-
+	virtual void OnTimer(int nId);
 };
 

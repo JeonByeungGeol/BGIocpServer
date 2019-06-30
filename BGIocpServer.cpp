@@ -11,6 +11,8 @@
 
 // test
 #include "BGTestTimerObject.h"
+#include "BGTestBasicMonster.h"
+
 #include "BGTestServer.h"
 #include "BGTestSocket.h"
 #include "BGProtocal.h"
@@ -54,6 +56,9 @@ int main()
 	//BGIOTimerThread::AddTimer(testTimerObj, 10000, 2);
 
 	auto point = (BGTestSocket*)0;
+
+	BGTestBasicMonster* testObject = new BGTestBasicMonster(5);
+	testObject->AddTimer(0, 50);
 
 	// 10초 이후 종료
 	for (; ;)

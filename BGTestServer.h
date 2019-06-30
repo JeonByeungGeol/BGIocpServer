@@ -56,5 +56,8 @@ public:
 
 	/** 게임 월드 검색 */
 	static BGGameWorld*			FindGameWorld(int nId);
+
+	/** IOCP POST 기능 (TimerThread - WorkerThread 연동)*/
+	static void Post(int nId, BGIOObject* pObject);
 };
 

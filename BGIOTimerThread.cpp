@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "BGIOTimerThread.h"
 #include "BGIOCompletionHandler.h"
+#include "BGTestServer.h"
 
 BGIOTimerThread::TimerQueue			BGIOTimerThread::s_timerQueue;
 BGIOCriticalSection					BGIOTimerThread::s_lockTimer;
@@ -81,7 +82,7 @@ void BGIOTimerThread::Run()
 			int id = top.m_nId;
 			for (; ;) {
 				s_timerQueue.pop();
-				pObject->OnTimerCallback(id);
+				BGTestServer::Post(id, pObject);
 
 				const BGIOTimer &nextTop = s_timerQueue.top();
 				nWait = (LONG)(nextTop.m_n64Time - n64Tick);

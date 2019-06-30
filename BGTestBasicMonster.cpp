@@ -12,3 +12,13 @@ BGTestBasicMonster::BGTestBasicMonster(int nGameWorIdIndex)
 BGTestBasicMonster::~BGTestBasicMonster()
 {
 }
+
+void BGTestBasicMonster::OnTimer(int nId)
+{
+	switch (nId)
+	{
+	case 50:
+		BG_LOG_DEBUG("%d", nId);
+		break;
+	}
+}

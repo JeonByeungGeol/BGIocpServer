@@ -1,6 +1,7 @@
 #pragma once
 
 #include "BGLock.h"
+#include "BGIOObject.h"
 
 enum class ObjectType : unsigned char
 {
@@ -15,7 +16,7 @@ struct Position
 };
 
 
-class BGGameObject
+class BGGameObject : public BGIOObject
 {
 	friend	class					BGTestSocket;
 public:

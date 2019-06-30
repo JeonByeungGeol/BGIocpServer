@@ -149,3 +149,8 @@ BGGameWorld* BGTestServer::FindGameWorld(int nId)
 
 	return &s_arrGameWorld[nId];
 }
+
+void BGTestServer::Post(int nId, BGIOObject * pObject)
+{
+	BGLayer::GetIOCP(BGTestSocket::s_nNetworkId)->Post(nId, pObject);
+}
