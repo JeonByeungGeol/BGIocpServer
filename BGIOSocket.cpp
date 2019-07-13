@@ -112,7 +112,8 @@ void BGIOSocket::Read(DWORD dwLeft)
 			BG_LOG_ERROR("");
 		Close();
 
-		Release();
+		// Close에서 이미 Release하고 있음...
+		// Release();
 	}
 }
 
